@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/boty/cart-context'
-import { SmoothScroll } from '@/components/boty/smooth-scroll'
+import { SmoothScrolling } from '@/components/smooth-scrolling'
 import './globals.css'
 
 const plusJakarta = Plus_Jakarta_Sans({ 
@@ -31,11 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className={`${plusJakarta.variable} font-sans antialiased`}>
-        <SmoothScroll>
+        <SmoothScrolling>
           <CartProvider>
             {children}
           </CartProvider>
-        </SmoothScroll>
+        </SmoothScrolling>
         <Analytics />
       </body>
     </html>

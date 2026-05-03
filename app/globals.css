@@ -1,51 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300..800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 /* ================================================
-   H VITAMIN DRIP — PREMIUM DESIGN SYSTEM
-   Forest Green + Vibrant Lime + Modern Effects
+   H VITAMIN DRIP — AI LUXURY DESIGN SYSTEM
+   Cream + Emerald Marble + Gold Accents
    ================================================ */
 
 :root {
-  --background: #F8F9F6;
-  --foreground: #043222;
+  --background: #F4F1E9;
+  --foreground: #132B23;
   --card: #FFFFFF;
-  --card-foreground: #043222;
+  --card-foreground: #132B23;
   --popover: #FFFFFF;
-  --popover-foreground: #043222;
-  --primary: #BFF74C;
-  --primary-foreground: #043222;
-  --secondary: #E8F5D8;
-  --secondary-foreground: #043222;
-  --muted: #EEF0EC;
-  --muted-foreground: #6B7A65;
-  --accent: #023820;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #E2E8DF;
-  --input: #EEF0EC;
-  --ring: #BFF74C;
+  --popover-foreground: #132B23;
+  --primary: #C4A67B;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1E3F30;
+  --secondary-foreground: #FFFFFF;
+  --muted: #EBE7DF;
+  --muted-foreground: #606864;
+  --accent: #DBC297;
+  --accent-foreground: #132B23;
+  --border: #DBC297;
+  --input: #EBE7DF;
+  --ring: #C4A67B;
   --radius: 1.25rem;
 
   /* Premium extended palette */
-  --green-50:  #F0F9F0;
-  --green-100: #DCEFDC;
-  --green-900: #043222;
-  --lime-400:  #BFF74C;
-  --lime-200:  #E3FB9A;
+  --cream-50:  #FCFAF7;
+  --cream-100: #F4F1E9;
+  --green-900: #132B23;
+  --green-800: #1A3A2C;
+  --gold-500:  #C4A67B;
+  --gold-300:  #DBC297;
 
   /* Shadows */
-  --shadow-card: 0 1px 3px rgba(4,50,34,.04), 0 4px 16px rgba(4,50,34,.06);
-  --shadow-lift: 0 8px 32px rgba(4,50,34,.12), 0 2px 8px rgba(4,50,34,.06);
-  --shadow-float: 0 20px 60px rgba(4,50,34,.15), 0 4px 16px rgba(4,50,34,.08);
+  --shadow-card: 0 4px 12px rgba(19,43,35,.06), 0 1px 3px rgba(19,43,35,.03);
+  --shadow-lift: 0 12px 32px rgba(19,43,35,.10), 0 4px 12px rgba(19,43,35,.04);
+  --shadow-float: 0 24px 60px rgba(19,43,35,.15), 0 8px 24px rgba(19,43,35,.08);
+  --shadow-gold: 0 8px 24px rgba(196,166,123,.25);
 }
 
 @theme inline {
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-serif: var(--font-sans);
+  --font-serif: 'Playfair Display', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -60,8 +61,6 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
