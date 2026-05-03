@@ -1,0 +1,432 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ================================================
+   H VITAMIN DRIP — PREMIUM DESIGN SYSTEM
+   Forest Green + Vibrant Lime + Modern Effects
+   ================================================ */
+
+:root {
+  --background: #F8F9F6;
+  --foreground: #043222;
+  --card: #FFFFFF;
+  --card-foreground: #043222;
+  --popover: #FFFFFF;
+  --popover-foreground: #043222;
+  --primary: #BFF74C;
+  --primary-foreground: #043222;
+  --secondary: #E8F5D8;
+  --secondary-foreground: #043222;
+  --muted: #EEF0EC;
+  --muted-foreground: #6B7A65;
+  --accent: #023820;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8DF;
+  --input: #EEF0EC;
+  --ring: #BFF74C;
+  --radius: 1.25rem;
+
+  /* Premium extended palette */
+  --green-50:  #F0F9F0;
+  --green-100: #DCEFDC;
+  --green-900: #043222;
+  --lime-400:  #BFF74C;
+  --lime-200:  #E3FB9A;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(4,50,34,.04), 0 4px 16px rgba(4,50,34,.06);
+  --shadow-lift: 0 8px 32px rgba(4,50,34,.12), 0 2px 8px rgba(4,50,34,.06);
+  --shadow-float: 0 20px 60px rgba(4,50,34,.15), 0 4px 16px rgba(4,50,34,.08);
+}
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: var(--font-sans);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.5rem;
+  --radius-full: 9999px;
+}
+
+/* ================================================
+   BASE RESETS & GLOBAL
+   ================================================ */
+@layer base {
+  * { @apply border-border outline-ring/50; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    letter-spacing: -0.01em;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: #BFF74C;
+    color: #043222;
+  }
+}
+
+/* ================================================
+   PREMIUM GLASS CARD
+   ================================================ */
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-dark {
+  background: rgba(4, 50, 34, 0.75);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(191, 247, 76, 0.12);
+}
+
+/* ================================================
+   CARD SHADOW UTILITIES
+   ================================================ */
+.shadow-card  { box-shadow: var(--shadow-card); }
+.shadow-lift  { box-shadow: var(--shadow-lift); }
+.shadow-float { box-shadow: var(--shadow-float); }
+
+/* ================================================
+   SMOOTH TRANSITIONS
+   ================================================ */
+.transition-premium {
+  transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.transition-fast {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ================================================
+   ANIMATED GRADIENT TEXT
+   ================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #043222 0%, #0a6640 50%, #043222 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.lime-gradient-text {
+  background: linear-gradient(135deg, #6fd400 0%, #BFF74C 50%, #96e000 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50%       { background-position: 100% center; }
+}
+
+/* ================================================
+   MESH GRADIENT BACKGROUNDS
+   ================================================ */
+.bg-mesh-hero {
+  background-color: #F8F9F6;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(191,247,76,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 90%, rgba(191,247,76,.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 85% 80%, rgba(4,50,34,.06) 0%, transparent 50%);
+}
+
+.bg-mesh-section {
+  background-color: #F0F4EC;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(191,247,76,.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 10% 80%, rgba(4,50,34,.05) 0%, transparent 50%);
+}
+
+/* ================================================
+   HOVER GLOW EFFECTS
+   ================================================ */
+.hover-glow:hover {
+  box-shadow: 0 0 0 3px rgba(191,247,76,.4), var(--shadow-lift);
+}
+
+.hover-glow-white:hover {
+  box-shadow: 0 0 0 3px rgba(255,255,255,.3), var(--shadow-lift);
+}
+
+/* ================================================
+   BUTTON PREMIUM STYLES
+   ================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #043222;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 14px rgba(4,50,34,.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(4,50,34,.35);
+  background: #023018;
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-lime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #BFF74C;
+  color: #043222;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 14px rgba(191,247,76,.4);
+}
+.btn-lime:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(191,247,76,.5);
+  background: #aaef30;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #043222;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border: 1.5px solid #043222;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-outline:hover {
+  background: #043222;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* ================================================
+   PRODUCT CARD PREMIUM
+   ================================================ */
+.product-card {
+  border-radius: 1.5rem;
+  background: white;
+  border: 1px solid rgba(4,50,34,.08);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-float);
+  border-color: rgba(4,50,34,.15);
+}
+
+/* Image zoom on card hover */
+.product-card:hover .product-image {
+  transform: scale(1.08);
+}
+.product-image {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Buy now slide up */
+.product-card .buy-now-btn {
+  transform: translateY(110%);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card:hover .buy-now-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ================================================
+   SECTION REVEAL ANIMATION (used with JS observer)
+   ================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ================================================
+   MARQUEE / SCROLLING TICKER
+   ================================================ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover { animation-play-state: paused; }
+
+/* ================================================
+   SHIMMER LOADING EFFECT
+   ================================================ */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ================================================
+   STAGGER CHILDREN (used via Framer Motion)
+   ================================================ */
+.stagger-children > * { opacity: 0; transform: translateY(20px); }
+
+/* ================================================
+   FLOATING ANIMATION (badges, cards)
+   ================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: float 6s ease-in-out infinite; }
+.animate-float-delay { animation: float 4s ease-in-out infinite 2s; }
+
+/* ================================================
+   PULSE DOT (live indicator)
+   ================================================ */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* ================================================
+   SCROLLBAR STYLING
+   ================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(4,50,34,.2); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(4,50,34,.4); }
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ================================================
+   ADMIN DASHBOARD SPECIFIC
+   ================================================ */
+.admin-card {
+  background: white;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(4,50,34,.07);
+  box-shadow: 0 1px 3px rgba(4,50,34,.04), 0 4px 12px rgba(4,50,34,.04);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.admin-card:hover {
+  box-shadow: 0 4px 20px rgba(4,50,34,.09);
+  border-color: rgba(4,50,34,.12);
+}
+
+/* Input premium style */
+.admin-input {
+  width: 100%;
+  background: #F8F9F6;
+  border: 1.5px solid #E2E8DF;
+  border-radius: 0.875rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
+  color: #043222;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.admin-input:focus {
+  border-color: #BFF74C;
+  box-shadow: 0 0 0 3px rgba(191,247,76,.2);
+}
+.admin-input::placeholder { color: #9CA3AF; }
+
+/* Toggle switch */
+.toggle-track {
+  width: 44px;
+  height: 24px;
+  border-radius: 9999px;
+  transition: background 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  transition: left 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ================================================
+   LEGACY UTILITIES (backwards compat)
+   ================================================ */
+.boty-shadow { box-shadow: var(--shadow-card); }
+.boty-transition { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.card-hover:hover { box-shadow: var(--shadow-lift); }
