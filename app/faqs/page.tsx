@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 import { ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
@@ -111,8 +111,8 @@ export default function FAQsPage() {
   const current = faqCategories.find((c) => c.title === activeCategory) || faqCategories[0]
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
       <div className="pt-[88px]">
         {/* Hero */}
@@ -198,7 +198,7 @@ export default function FAQsPage() {
         </div>
       </div>
 
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

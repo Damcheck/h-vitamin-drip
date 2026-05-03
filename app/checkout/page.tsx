@@ -4,8 +4,8 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, CheckCircle2, ShieldCheck, Lock, ChevronDown, ChevronUp, Minus, Plus, Trash2, ArrowRight } from "lucide-react"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 import { useCart } from "@/components/boty/cart-context"
 
 type Step = "details" | "confirm" | "success"
@@ -101,8 +101,8 @@ export default function CheckoutPage() {
 
   if (items.length === 0 && step !== "success") {
     return (
-      <main className="min-h-screen bg-background">
-        <Header />
+      <main className="min-h-screen bg-[#F4F1E9]">
+        <AIHeader />
         <div className="pt-36 pb-24 flex flex-col items-center justify-center text-center px-4">
           <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-6">
             <ShieldCheck className="w-8 h-8 text-muted-foreground" />
@@ -116,15 +116,15 @@ export default function CheckoutPage() {
             Browse Treatments <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-        <Footer />
+        <AIFooter />
       </main>
     )
   }
 
   if (step === "success") {
     return (
-      <main className="min-h-screen bg-background">
-        <Header />
+      <main className="min-h-screen bg-[#F4F1E9]">
+        <AIHeader />
         <div className="pt-36 pb-24 flex flex-col items-center justify-center text-center px-4">
           <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
             <CheckCircle2 className="w-10 h-10 text-primary" />
@@ -168,14 +168,14 @@ export default function CheckoutPage() {
             </Link>
           </div>
         </div>
-        <Footer />
+        <AIFooter />
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
       <div className="pt-28 pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -535,7 +535,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

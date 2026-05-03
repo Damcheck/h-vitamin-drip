@@ -1,10 +1,10 @@
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
       <div className="pt-[88px]">
         {/* Hero */}
@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </div>
 
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

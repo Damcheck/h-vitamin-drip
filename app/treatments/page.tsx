@@ -5,8 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, Clock, ArrowRight, SlidersHorizontal, X } from "lucide-react"
 import { motion } from "framer-motion"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 import { treatments } from "@/lib/products"
 import { useCart } from "@/components/boty/cart-context"
 import type { Treatment } from "@/lib/products"
@@ -60,8 +60,8 @@ export default function TreatmentsPage() {
     selectedCategory === "all" ? treatments : treatments.filter((t) => t.category === selectedCategory)
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
       {/* Page hero */}
       <section className="relative pt-36 pb-20 bg-card overflow-hidden">
@@ -232,7 +232,7 @@ export default function TreatmentsPage() {
         </div>
       </section>
 
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

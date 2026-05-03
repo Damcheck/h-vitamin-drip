@@ -8,29 +8,33 @@ export function AICollection() {
     {
       id: 1,
       name: "The Radiance Drip",
+      slug: "glutathione-detox",
       desc: "Glutathione, Vitamin C, Biotin",
-      price: "$199",
+      price: "₦150,000",
       img: "/ai_products_amber_1777828029216.png"
     },
     {
       id: 2,
       name: "Immunity Elixir",
+      slug: "immunity-booster",
       desc: "High Dose Vitamin C, Zinc, B-Complex",
-      price: "$149",
+      price: "₦150,000",
       img: "/ai_frosted_glass_bottles_1777828556271.png"
     },
     {
       id: 3,
       name: "Deep Hydration",
+      slug: "hydration-drip",
       desc: "Electrolytes, Magnesium, B12",
-      price: "$129",
-      img: "/placeholder.jpg" // fallback to existing images for variety
+      price: "₦120,000",
+      img: "/images/products/spray-bottles.png" // fallback to existing images for variety
     },
     {
       id: 4,
       name: "Energy Boost",
+      slug: "energy-drip",
       desc: "NAD+, B12, Amino Acids",
-      price: "$249",
+      price: "₦170,000",
       img: "/ai_green_pill_stone_1777828406737.png"
     }
   ];
@@ -79,7 +83,7 @@ export function AICollection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {products.map((p) => (
-            <Link href="/treatment/radiance-drip" key={p.id} className="block w-full">
+            <Link href={`/treatment/${p.slug}`} key={p.id} className="block w-full">
               <motion.div variants={cardVariants} className="group relative bg-[#FCFAF7]/40 backdrop-blur-md rounded-[2rem] p-4 border border-[#C4A67B]/20 transition-all duration-500 hover:shadow-gold hover:border-[#C4A67B]/70 hover:bg-[#FCFAF7]/80 flex flex-col h-full cursor-pointer">
               {/* Image Container */}
               <div className="relative w-full aspect-[4/5] rounded-[1.5rem] overflow-hidden mb-6 bg-[#F4F1E9]">

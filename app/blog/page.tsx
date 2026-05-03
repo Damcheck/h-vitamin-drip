@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 import Link from "next/link"
 import { ArrowRight, Clock } from "lucide-react"
 
@@ -67,8 +67,8 @@ const categories = ["All", "Education", "Skin Care", "Anti-Ageing", "Guide", "We
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
       <div className="pt-[88px]">
         {/* Hero */}
@@ -221,7 +221,7 @@ export default function BlogPage() {
         </div>
       </div>
 
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

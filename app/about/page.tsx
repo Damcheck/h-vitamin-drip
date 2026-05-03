@@ -1,22 +1,16 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Header } from "@/components/boty/header"
-import { Footer } from "@/components/boty/footer"
+import { AIHeader } from "@/components/ai-theme/ai-header"
+import { AIFooter } from "@/components/ai-theme/ai-footer"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 const stats = [
   { value: "5,000+", label: "Treatments given" },
   { value: "98%", label: "Client satisfaction" },
   { value: "50+", label: "Registered nurses" },
   { value: "3", label: "Cities covered" },
-]
-
-const team = [
-  { name: "Dr. Adaeze Okonkwo", role: "Medical Director", bg: "bg-[#E8EDE5]" },
-  { name: "Nurse Emeka Taiwo", role: "Senior IV Therapist", bg: "bg-[#EDE5E8]" },
-  { name: "Nurse Chidinma Eze", role: "Wellness Specialist", bg: "bg-[#E5EBF0]" },
 ]
 
 const values = [
@@ -28,179 +22,128 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <main className="min-h-screen bg-[#F4F1E9]">
+      <AIHeader />
 
-      <div className="pt-[88px]">
-        {/* Hero */}
-        <div className="bg-foreground text-white py-24 overflow-hidden">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
+      {/* Hero */}
+      <section className="relative pt-32 pb-24 overflow-hidden border-b border-[#C4A67B]/20">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR STORY</p>
+            <h1 className="font-serif text-5xl md:text-7xl text-[#132B23] uppercase leading-tight mb-8">
+              PIONEERING<br />CELLULAR WELLNESS
+            </h1>
+            <p className="text-[#606864] text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+              We are Nigeria&apos;s leading nurse-led IV vitamin therapy service, bringing clinical-grade wellness treatments directly to you. A seamless fusion of science, luxury, and health.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="bg-[#132B23] py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <Image src="/ai_dark_marble_1777828612578.png" alt="Marble" fill className="object-cover" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <p className="font-serif text-4xl md:text-5xl text-[#DBC297] mb-2">{s.value}</p>
+                <p className="text-[#EBE7DF] text-[10px] font-bold uppercase tracking-[0.2em]">{s.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="py-32 bg-[#F4F1E9]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="max-w-3xl"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-[#C4A67B]/30 shadow-gold"
             >
-              <p className="text-[13px] font-semibold uppercase tracking-widest text-white/40 mb-4">Our Story</p>
-              <h1 className="text-[52px] md:text-[72px] font-bold leading-tight mb-6">
-                About H Vitamin Drip
-              </h1>
-              <p className="text-[16px] text-white/60 leading-relaxed max-w-2xl">
-                We are Nigeria&apos;s leading nurse-led IV vitamin therapy service, bringing clinical-grade wellness treatments directly to you wherever you are.
-              </p>
+              <Image src="/ai_hero_sofa_1777827823407.png" alt="Mission" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#132B23]/60 to-transparent"></div>
+              <div className="absolute bottom-8 left-8 right-8 bg-[#FCFAF7]/20 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-6 text-center">
+                <p className="text-[#DBC297] text-[10px] uppercase tracking-widest font-bold mb-2">TRUSTED BY</p>
+                <p className="font-serif text-2xl text-[#EBE7DF]">5,000+ Nigerians</p>
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR MISSION</p>
+              <h2 className="font-serif text-4xl md:text-5xl text-[#132B23] leading-tight mb-8 uppercase">
+                Premium Wellness,<br />Delivered.
+              </h2>
+              <div className="space-y-6 text-[#606864] text-sm leading-loose">
+                <p>
+                  H Vitamin Drip was founded with a simple belief: everyone deserves access to clinical-grade wellness care without leaving the comfort of their home. We are proud to be the first nurse-led, home-delivery IV therapy service in Nigeria.
+                </p>
+                <p>
+                  Every treatment is administered by a registered nurse, using pharmaceutical-grade ingredients sourced from certified suppliers. Your health, safety, and ultimate comfort are our absolute priorities.
+                </p>
+              </div>
+              <Link
+                href="/shop"
+                className="mt-10 inline-flex items-center gap-4 bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-gold hover:scale-105 transition-all duration-300"
+              >
+                Explore Treatments &rarr;
+              </Link>
             </motion.div>
           </div>
         </div>
+      </section>
 
-        {/* Stats */}
-        <div className="bg-primary py-12">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {stats.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <p className="text-[36px] font-bold text-foreground">{s.value}</p>
-                  <p className="text-[13px] font-semibold text-foreground/60 uppercase tracking-wider">{s.label}</p>
-                </motion.div>
-              ))}
-            </div>
+      {/* Values */}
+      <section className="py-32 bg-gradient-to-b from-[#E3E8E1] to-[#F4F1E9] border-t border-[#C4A67B]/20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR ETHOS</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#132B23] uppercase">The Standard of Care</h2>
           </div>
-        </div>
-
-        {/* Mission */}
-        <div className="py-20">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-14 items-center">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((v, i) => (
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                key={v.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className="aspect-[4/5] rounded-[32px] bg-[#E8EDE5] overflow-hidden relative"
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+                className="bg-[#FCFAF7]/40 backdrop-blur-xl rounded-[2rem] p-8 border border-[#C4A67B]/30 hover:border-[#C4A67B]/70 hover:shadow-gold transition-all duration-300"
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-40 h-64 bg-gradient-to-b from-[#b8ccaf] to-[#8faa7a] rounded-full opacity-60" />
+                <div className="w-12 h-12 rounded-full border border-[#C4A67B] flex items-center justify-center mb-6 text-[#C4A67B] font-serif text-xl">
+                  {i + 1}
                 </div>
-                <div className="absolute bottom-8 left-8 bg-white rounded-2xl px-5 py-4 shadow-lg">
-                  <p className="text-[13px] text-muted-foreground mb-1">Trusted by</p>
-                  <p className="text-[22px] font-bold text-foreground">5,000+ Nigerians</p>
-                </div>
+                <h3 className="font-serif text-xl text-[#132B23] mb-4">{v.title}</h3>
+                <p className="text-[#606864] text-xs leading-relaxed">{v.desc}</p>
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.15 }}
-              >
-                <p className="text-[13px] font-semibold uppercase tracking-widest text-foreground/40 mb-4">Our Mission</p>
-                <h2 className="text-[40px] md:text-[52px] font-bold text-foreground leading-tight mb-5">
-                  Making premium wellness accessible to every Nigerian
-                </h2>
-                <p className="text-[15px] text-foreground/60 leading-relaxed mb-5">
-                  H Vitamin Drip was founded with a simple belief: everyone deserves access to clinical-grade wellness care without leaving the comfort of their home. We are proud to be the first nurse-led, home-delivery IV therapy service in Nigeria.
-                </p>
-                <p className="text-[15px] text-foreground/60 leading-relaxed mb-8">
-                  Every treatment is administered by a registered nurse, using pharmaceutical-grade ingredients sourced from certified suppliers. Your health and safety is our top priority.
-                </p>
-                <Link
-                  href="/shop"
-                  className="inline-flex items-center gap-2 bg-foreground text-white px-8 py-4 rounded-full text-[14px] font-bold hover:bg-foreground/80 transition-all group"
-                >
-                  Explore treatments
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Values */}
-        <div className="py-20 bg-[#F4F6F2]">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="text-[13px] font-semibold uppercase tracking-widest text-foreground/40 mb-3">Our Values</p>
-              <h2 className="text-[40px] font-bold text-foreground">What we stand for</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {values.map((v, i) => (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-white rounded-[20px] p-6 border border-border/30"
-                >
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mb-4">
-                    <span className="text-lg font-bold text-foreground">{i + 1}</span>
-                  </div>
-                  <h3 className="text-[16px] font-bold text-foreground mb-2">{v.title}</h3>
-                  <p className="text-[14px] text-foreground/60 leading-relaxed">{v.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Team */}
-        <div className="py-20">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="text-[13px] font-semibold uppercase tracking-widest text-foreground/40 mb-3">Our Team</p>
-              <h2 className="text-[40px] font-bold text-foreground">Meet the professionals</h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              {team.map((member, i) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="flex flex-col items-center text-center"
-                >
-                  <div className={`w-32 h-32 ${member.bg} rounded-full mb-4 flex items-center justify-center`}>
-                    <span className="text-4xl font-bold text-foreground/20">{member.name[0]}</span>
-                  </div>
-                  <h3 className="text-[16px] font-bold text-foreground">{member.name}</h3>
-                  <p className="text-[13px] text-muted-foreground">{member.role}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="py-20 bg-foreground text-white">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-8 text-center">
-            <h2 className="text-[40px] md:text-[52px] font-bold mb-4">Ready to feel the difference?</h2>
-            <p className="text-[16px] text-white/60 mb-8 max-w-lg mx-auto">
-              Book your first IV therapy session today and experience the H Vitamin Drip difference.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/shop"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full text-[14px] font-bold hover:bg-primary/80 transition-all"
-              >
-                Shop now <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-full text-[14px] font-bold hover:bg-white/20 transition-all"
-              >
-                Contact us
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Footer />
+      <AIFooter />
     </main>
   )
 }

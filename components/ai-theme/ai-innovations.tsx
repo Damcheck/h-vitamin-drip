@@ -56,7 +56,7 @@ export function AIInnovations() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {products.map((p, i) => (
-            <Link href="/treatment/radiance-drip" key={i} className="block w-full">
+            <Link href="/treatment/glutathione-detox" key={i} className="block w-full">
             <motion.div 
               variants={{
                 hidden: { opacity: 0, y: 40 },
