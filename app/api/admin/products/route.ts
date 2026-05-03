@@ -1,55 +1,38 @@
 import { NextRequest, NextResponse } from "next/server"
-import { readFileSync, writeFileSync, existsSync } from "fs"
-import { join } from "path"
+import { createClient } from "@supabase/supabase-js"
 
-const DATA_FILE = join(process.cwd(), "data", "products.json")
-
-function getProducts() {
-  if (!existsSync(DATA_FILE)) {
-    // Bootstrap from lib/products.ts on first run
-    return []
-  }
-  const raw = readFileSync(DATA_FILE, "utf-8")
-  return JSON.parse(raw)
-}
-
-function saveProducts(products: unknown[]) {
-  const dir = join(process.cwd(), "data")
-  if (!existsSync(dir)) {
-    const { mkdirSync } = require("fs")
-    mkdirSync(dir, { recursive: true })
-  }
-  writeFileSync(DATA_FILE, JSON.stringify(products, null, 2), "utf-8")
-}
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export async function GET() {
-  const products = getProducts()
-  return NextResponse.json(products)
+  const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false })
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const products = getProducts()
-  const newProduct = { ...body, id: Date.now().toString(), createdAt: new Date().toISOString() }
-  products.push(newProduct)
-  saveProducts(products)
-  return NextResponse.json(newProduct, { status: 201 })
+  const slug = body.slug || (body.name || "product").toLowerCase().replace(/[^a-z0-9]+/g, "-")
+  const { data, error } = await supabase.from("products").insert([{ ...body, slug }]).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data, { status: 201 })
 }
 
 export async function PUT(req: NextRequest) {
   const body = await req.json()
-  const products = getProducts()
-  const idx = products.findIndex((p: { id: string }) => p.id === body.id)
-  if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 })
-  products[idx] = { ...products[idx], ...body, updatedAt: new Date().toISOString() }
-  saveProducts(products)
-  return NextResponse.json(products[idx])
+  const { id, ...updates } = body
+  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 })
+  const { data, error } = await supabase.from("products").update(updates).eq("id", id).select().single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 export async function DELETE(req: NextRequest) {
   const { id } = await req.json()
-  let products = getProducts()
-  products = products.filter((p: { id: string }) => p.id !== id)
-  saveProducts(products)
+  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 })
+  const { error } = await supabase.from("products").delete().eq("id", id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }

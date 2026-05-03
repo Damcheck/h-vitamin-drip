@@ -11,10 +11,15 @@ create table if not exists public.products (
   slug text not null unique,
   tagline text not null,
   description text not null,
+  long_description text,
+  who_is_it_for text[],
+  disclaimer text,
   price numeric not null,
+  original_price numeric,
   duration text not null,
   category text not null,
   image text not null,
+  images text[] default '{}',
   featured boolean default false,
   ingredients text[] default '{}',
   benefits text[] default '{}'
@@ -47,12 +52,12 @@ create table if not exists public.bookings (
   address text not null,
   city text not null,
   postcode text not null,
-  preferred_date date,
-  preferred_time text,
+  date date not null,
+  time text not null,
   notes text,
   status text default 'pending', -- pending, confirmed, completed, cancelled
   total_amount numeric not null,
-  payment_method text not null -- online, whatsapp
+  payment_status text default 'pending'
 );
 
 alter table public.bookings enable row level security;

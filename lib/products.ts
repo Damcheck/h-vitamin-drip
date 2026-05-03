@@ -10,6 +10,7 @@ export interface Treatment {
   originalPrice?: number
   packages?: { label: string; price: number }[]
   image: string
+  images?: string[]
   keyIngredients: string[]
   benefits: string[]
   duration: string

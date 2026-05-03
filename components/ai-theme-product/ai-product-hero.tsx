@@ -1,17 +1,17 @@
 "use client"
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export function AIProductHero({ treatment }: { treatment: any }) {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  })
-
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
   const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
+  // Build gallery — use images[] if available, fallback to single image
+  const gallery: string[] = treatment.images?.length ? treatment.images : [treatment.image].filter(Boolean)
+  const [activeImg, setActiveImg] = useState(gallery[0] || treatment.image)
 
   return (
     <section ref={ref} className="relative w-full min-h-[90vh] bg-gradient-to-b from-[#F4F1E9] to-[#D5E1D6] flex flex-col items-center justify-start pt-36 pb-32 overflow-hidden">
@@ -33,35 +33,25 @@ export function AIProductHero({ treatment }: { treatment: any }) {
         </motion.div>
 
         {/* Floating Stats - Left */}
-        <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-4 md:left-24 top-1/3 bg-[#FCFAF7]/60 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-4 flex flex-col items-center shadow-gold z-30"
-        >
+        <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-4 md:left-24 top-1/3 bg-[#FCFAF7]/60 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-4 flex flex-col items-center shadow-gold z-30">
           <div className="text-xl mb-1">⚡</div>
           <div className="font-serif text-2xl text-[#132B23] font-bold">99%</div>
           <div className="text-[8px] uppercase tracking-widest text-[#606864] text-center max-w-[80px]">Bioavailability</div>
         </motion.div>
 
         {/* Floating Stats - Right */}
-        <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute right-4 md:right-24 top-1/4 bg-[#FCFAF7]/60 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-4 flex flex-col items-center shadow-gold z-30"
-        >
+        <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute right-4 md:right-24 top-1/4 bg-[#FCFAF7]/60 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-4 flex flex-col items-center shadow-gold z-30">
           <div className="text-xl mb-1">💧</div>
           <div className="font-serif text-2xl text-[#132B23] font-bold">35%</div>
           <div className="text-[8px] uppercase tracking-widest text-[#606864] text-center max-w-[80px]">Cellular Hydration</div>
         </motion.div>
 
-        {/* Product Bottle */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative w-64 h-80 md:w-80 md:h-[400px] z-20"
-        >
-          <Image src={treatment.image || "/ai_products_amber_1777828029216.png"} alt={treatment.name} fill className="object-contain" />
+        {/* Product Bottle - active image */}
+        <motion.div key={activeImg} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+          className="relative w-64 h-80 md:w-80 md:h-[400px] z-20">
+          <Image src={activeImg || "/ai_products_amber_1777828029216.png"} alt={treatment.name} fill className="object-contain" />
         </motion.div>
 
         {/* Green Marble Slab */}
@@ -69,6 +59,19 @@ export function AIProductHero({ treatment }: { treatment: any }) {
           <Image src="/ai_dark_marble_1777828612578.png" alt="Marble Slab" fill className="object-cover" style={{ transform: "perspective(1000px) rotateX(75deg)" }} />
         </div>
       </div>
+
+      {/* Thumbnail Gallery Strip — only shown if multiple images */}
+      {gallery.length > 1 && (
+        <div className="relative z-30 flex items-center gap-3 mt-8 px-4 flex-wrap justify-center">
+          {gallery.map((img, i) => (
+            <button key={img + i} type="button" onClick={() => setActiveImg(img)}
+              className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-200 flex-shrink-0
+                ${activeImg === img ? "border-[#132B23] scale-110 shadow-gold" : "border-[#C4A67B]/30 hover:border-[#C4A67B] opacity-70 hover:opacity-100"}`}>
+              <Image src={img} alt={`View ${i + 1}`} fill className="object-cover" sizes="64px" />
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
