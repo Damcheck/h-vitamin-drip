@@ -2,10 +2,38 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { treatments } from '@/lib/products'
+import { supabase } from '@/lib/supabase'
+import type { Treatment } from '@/lib/products'
+import { useState, useEffect } from 'react'
 
 export function AIProductRelated({ currentTreatmentId }: { currentTreatmentId: string }) {
-  const related = treatments.filter((t) => t.id !== currentTreatmentId).slice(0, 3);
+  const [related, setRelated] = useState<Treatment[]>([])
+
+  useEffect(() => {
+    async function loadRelated() {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .neq('id', currentTreatmentId)
+        .limit(3)
+      
+      if (data) {
+        setRelated(data.map(d => ({
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          category: d.category,
+          tagline: d.tagline,
+          description: d.description,
+          price: Number(d.price),
+          image: d.image,
+          duration: d.duration,
+          featured: d.featured,
+        })) as Treatment[])
+      }
+    }
+    loadRelated()
+  }, [currentTreatmentId])
 
   return (
     <section className="bg-[#F4F1E9] py-24 px-6 border-t border-[#C4A67B]/20">

@@ -1,15 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, SlidersHorizontal, X } from "lucide-react"
 import { AIHeader } from "@/components/ai-theme/ai-header"
 import { AIFooter } from "@/components/ai-theme/ai-footer"
-import { treatments } from "@/lib/products"
 import { useCart } from "@/components/boty/cart-context"
 import { motion, AnimatePresence } from "framer-motion"
 import type { Treatment } from "@/lib/products"
+import { supabase } from "@/lib/supabase"
 
 const categoryFilters = [
   { key: "all", label: "The Collection" },
@@ -21,7 +21,31 @@ const categoryFilters = [
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
+  const [treatments, setTreatments] = useState<Treatment[]>([])
+  const [loading, setLoading] = useState(true)
   const { addItem } = useCart()
+
+  useEffect(() => {
+    async function loadProducts() {
+      const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
+      if (data) {
+        setTreatments(data.map(d => ({
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          category: d.category,
+          tagline: d.tagline,
+          description: d.description,
+          price: Number(d.price),
+          image: d.image,
+          duration: d.duration,
+          featured: d.featured,
+        })) as Treatment[])
+      }
+      setLoading(false)
+    }
+    loadProducts()
+  }, [])
 
   const filtered =
     selectedCategory === "all" ? treatments : treatments.filter((t) => t.category === selectedCategory)
@@ -127,27 +151,33 @@ export default function ShopPage() {
         </AnimatePresence>
 
         {/* Product Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((treatment) => (
-              <ShopCard
-                key={treatment.id}
-                treatment={treatment}
-                onAddToCart={() =>
-                  addItem({
-                    id: treatment.id,
-                    name: treatment.name,
-                    price: treatment.price,
-                    image: treatment.image,
-                  })
-                }
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {loading ? (
+          <div className="py-20 flex justify-center">
+            <div className="w-8 h-8 border-2 border-[#C4A67B] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((treatment) => (
+                <ShopCard
+                  key={treatment.id}
+                  treatment={treatment}
+                  onAddToCart={() =>
+                    addItem({
+                      id: treatment.id,
+                      name: treatment.name,
+                      price: treatment.price,
+                      image: treatment.image,
+                    })
+                  }
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
 
       <AIFooter />

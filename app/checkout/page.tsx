@@ -7,6 +7,7 @@ import { ArrowLeft, CheckCircle2, ShieldCheck, Lock, ChevronDown, ChevronUp, Min
 import { AIHeader } from "@/components/ai-theme/ai-header"
 import { AIFooter } from "@/components/ai-theme/ai-footer"
 import { useCart } from "@/components/boty/cart-context"
+import { supabase } from "@/lib/supabase"
 
 type Step = "details" | "confirm" | "success"
 
@@ -77,6 +78,8 @@ export default function CheckoutPage() {
   const [form, setForm] = useState<FormData>(initialForm)
   const [summaryOpen, setSummaryOpen] = useState(true)
   const [checkoutMethod, setCheckoutMethod] = useState<"online" | "whatsapp">("online")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState("")
 
   const total = subtotal
 
@@ -89,13 +92,54 @@ export default function CheckoutPage() {
     )
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (checkoutMethod === "whatsapp") {
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage()}`, "_blank")
     } else {
-      setStep("success")
-      clearCart()
+      setIsSubmitting(true)
+      setError("")
+
+      try {
+        const { data: booking, error: bookingError } = await supabase
+          .from("bookings")
+          .insert({
+            client_name: `${form.firstName} ${form.lastName}`,
+            client_email: form.email,
+            client_phone: form.phone,
+            address: `${form.address}, ${form.city}, ${form.postcode}`,
+            preferred_date: form.preferredDate || null,
+            preferred_time: form.preferredTime,
+            notes: form.notes,
+            total_amount: total,
+            status: "pending",
+          })
+          .select()
+          .single()
+
+        if (bookingError) throw bookingError
+
+        const bookingItems = items.map(item => ({
+          booking_id: booking.id,
+          product_id: item.id,
+          quantity: item.quantity,
+          price_at_booking: item.price,
+        }))
+
+        const { error: itemsError } = await supabase
+          .from("booking_items")
+          .insert(bookingItems)
+
+        if (itemsError) throw itemsError
+
+        setStep("success")
+        clearCart()
+      } catch (err: any) {
+        console.error("Booking error:", err)
+        setError(err.message || "Failed to submit booking. Please try again or use WhatsApp.")
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -490,14 +534,20 @@ export default function CheckoutPage() {
 
                 {/* Submit buttons */}
                 <div className="p-5 space-y-3 border-t border-border">
+                  {error && (
+                    <div className="bg-destructive/10 text-destructive text-xs font-semibold px-4 py-3 rounded-xl border border-destructive/20">
+                      {error}
+                    </div>
+                  )}
                   {checkoutMethod === "online" ? (
                     <button
                       type="submit"
                       form="checkout-form"
-                      className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-semibold text-sm hover:bg-primary/90 boty-transition boty-shadow"
+                      disabled={isSubmitting}
+                      className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-full font-semibold text-sm hover:bg-primary/90 boty-transition boty-shadow disabled:opacity-50"
                     >
                       <Lock className="w-4 h-4" />
-                      Confirm Booking — ₦{total.toLocaleString()}
+                      {isSubmitting ? "Processing..." : `Confirm Booking — ₦${total.toLocaleString()}`}
                     </button>
                   ) : (
                     <button

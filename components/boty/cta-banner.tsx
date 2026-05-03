@@ -4,11 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ShoppingBag } from "lucide-react"
 import { useCart } from "./cart-context"
-import { treatments } from "@/lib/products"
+import type { Treatment } from "@/lib/products"
+import { supabase } from "@/lib/supabase"
 import { motion } from "framer-motion"
-import { useState } from "react"
-
-const recentProducts = treatments.slice(4, 8)
+import { useState, useEffect } from "react"
 
 const cardColors = [
   "bg-[#F0EBF8]",
@@ -19,6 +18,33 @@ const cardColors = [
 
 export function CTABanner() {
   const { addItem } = useCart()
+  const [recentProducts, setRecentProducts] = useState<Treatment[]>([])
+
+  useEffect(() => {
+    async function loadRecent() {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(4)
+      
+      if (data) {
+        setRecentProducts(data.map(d => ({
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          category: d.category,
+          tagline: d.tagline,
+          description: d.description,
+          price: Number(d.price),
+          image: d.image,
+          duration: d.duration,
+          featured: d.featured,
+        })) as Treatment[])
+      }
+    }
+    loadRecent()
+  }, [])
 
   return (
     <>
@@ -121,7 +147,7 @@ function MiniProductCard({
   color,
   onAddToCart,
 }: {
-  treatment: (typeof treatments)[0]
+  treatment: Treatment
   color: string
   onAddToCart: () => void
 }) {

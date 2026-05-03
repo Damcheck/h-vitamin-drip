@@ -4,9 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ShoppingBag } from "lucide-react"
 import { useCart } from "./cart-context"
-import { featuredTreatments } from "@/lib/products"
+import type { Treatment } from "@/lib/products"
+import { supabase } from "@/lib/supabase"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const productImages: Record<string, string> = {
   "energy-drip": "/images/products/serum-bottles-1.png",
@@ -36,7 +37,37 @@ const item = {
 
 export function ProductGrid() {
   const { addItem } = useCart()
-  const featured = featuredTreatments.slice(0, 4)
+  const [featured, setFeatured] = useState<Treatment[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchFeatured() {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .eq('featured', true)
+        .order('created_at', { ascending: false })
+        .limit(4)
+
+      if (data) {
+        setFeatured(data.map(d => ({
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          category: d.category,
+          tagline: d.tagline,
+          description: d.description,
+          price: Number(d.price),
+          originalPrice: d.original_price ? Number(d.original_price) : undefined,
+          image: d.image,
+          duration: d.duration,
+          featured: d.featured,
+        })) as Treatment[])
+      }
+      setLoading(false)
+    }
+    fetchFeatured()
+  }, [])
 
   return (
     <section className="py-20 bg-[#F8F9F8]">
@@ -63,24 +94,30 @@ export function ProductGrid() {
         </motion.div>
 
         {/* Product Grid — 4 columns */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {featured.map((treatment, i) => (
-            <ProductCard
-              key={treatment.id}
-              treatment={treatment}
-              cardBg={cardBgs[i % cardBgs.length]}
-              onAddToCart={() =>
-                addItem({ id: treatment.id, name: treatment.name, price: treatment.price, image: productImages[treatment.id] || treatment.image })
-              }
-            />
-          ))}
-        </motion.div>
+        {loading ? (
+          <div className="py-20 flex justify-center">
+            <div className="w-8 h-8 border-2 border-[#C4A67B] border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+          >
+            {featured.map((treatment, i) => (
+              <ProductCard
+                key={treatment.id}
+                treatment={treatment}
+                cardBg={cardBgs[i % cardBgs.length]}
+                onAddToCart={() =>
+                  addItem({ id: treatment.id, name: treatment.name, price: treatment.price, image: productImages[treatment.id] || treatment.image })
+                }
+              />
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   )
@@ -91,7 +128,7 @@ function ProductCard({
   cardBg,
   onAddToCart,
 }: {
-  treatment: typeof featuredTreatments[0]
+  treatment: Treatment
   cardBg: string
   onAddToCart: () => void
 }) {

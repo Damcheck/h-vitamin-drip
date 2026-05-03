@@ -1,15 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, Clock, ArrowRight, SlidersHorizontal, X } from "lucide-react"
 import { motion } from "framer-motion"
 import { AIHeader } from "@/components/ai-theme/ai-header"
 import { AIFooter } from "@/components/ai-theme/ai-footer"
-import { treatments } from "@/lib/products"
 import { useCart } from "@/components/boty/cart-context"
 import type { Treatment } from "@/lib/products"
+import { supabase } from "@/lib/supabase"
 
 const productImages: Record<string, string> = {
   "energy-drip": "/images/products/serum-bottles-1.png",
@@ -54,7 +54,31 @@ const categoryDescriptions: Record<string, string> = {
 export default function TreatmentsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
+  const [treatments, setTreatments] = useState<Treatment[]>([])
+  const [loading, setLoading] = useState(true)
   const { addItem } = useCart()
+
+  useEffect(() => {
+    async function loadProducts() {
+      const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
+      if (data) {
+        setTreatments(data.map(d => ({
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          category: d.category,
+          tagline: d.tagline,
+          description: d.description,
+          price: Number(d.price),
+          image: d.image,
+          duration: d.duration,
+          featured: d.featured,
+        })) as Treatment[])
+      }
+      setLoading(false)
+    }
+    loadProducts()
+  }, [])
 
   const filtered =
     selectedCategory === "all" ? treatments : treatments.filter((t) => t.category === selectedCategory)
@@ -136,75 +160,84 @@ export default function TreatmentsPage() {
             </div>
           )}
 
-          {/* IV Drips are highlighted in a larger first card if category is all */}
-          {selectedCategory === "all" ? (
-            <div className="space-y-16">
-              {categoryFilters.filter(c => c.key !== "all").map((cat) => {
-                const catTreatments = treatments.filter(t => t.category === cat.key)
-                if (!catTreatments.length) return null
-                return (
-                  <div key={cat.key}>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2 className="font-serif text-2xl md:text-3xl text-foreground">{cat.label}</h2>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedCategory(cat.key)}
-                        className="text-sm text-primary font-medium flex items-center gap-1 hover:underline"
-                      >
-                        View all <ArrowRight className="w-3 h-3" />
-                      </button>
-                    </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {catTreatments.map((t, index) => (
-                        <motion.div
-                          key={t.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                          <TreatmentCard
-                            treatment={t}
-                            image={productImages[t.id] || "/images/products/serum-bottles-1.png"}
-                            onAddToCart={() => addItem({
-                              id: t.id,
-                              name: t.name,
-                              description: t.tagline,
-                              price: t.price,
-                              image: productImages[t.id] || "/images/products/serum-bottles-1.png",
-                            })}
-                          />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
+          {/* Loading State */}
+          {loading ? (
+            <div className="py-20 flex justify-center">
+              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((t, index) => (
-                <motion.div
-                  key={t.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <TreatmentCard
-                    treatment={t}
-                    image={productImages[t.id] || "/images/products/serum-bottles-1.png"}
-                    onAddToCart={() => addItem({
-                      id: t.id,
-                      name: t.name,
-                      description: t.tagline,
-                      price: t.price,
-                      image: productImages[t.id] || "/images/products/serum-bottles-1.png",
-                    })}
-                  />
-                </motion.div>
-              ))}
-            </div>
+            <>
+              {/* IV Drips are highlighted in a larger first card if category is all */}
+              {selectedCategory === "all" ? (
+                <div className="space-y-16">
+                  {categoryFilters.filter(c => c.key !== "all").map((cat) => {
+                    const catTreatments = treatments.filter(t => t.category === cat.key)
+                    if (!catTreatments.length) return null
+                    return (
+                      <div key={cat.key}>
+                        <div className="flex items-center justify-between mb-6">
+                          <h2 className="font-serif text-2xl md:text-3xl text-foreground">{cat.label}</h2>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCategory(cat.key)}
+                            className="text-sm text-primary font-medium flex items-center gap-1 hover:underline"
+                          >
+                            View all <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {catTreatments.map((t, index) => (
+                            <motion.div
+                              key={t.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.5, delay: index * 0.1 }}
+                            >
+                              <TreatmentCard
+                                treatment={t}
+                                image={t.image || productImages[t.id] || "/images/products/serum-bottles-1.png"}
+                                onAddToCart={() => addItem({
+                                  id: t.id,
+                                  name: t.name,
+                                  description: t.tagline,
+                                  price: t.price,
+                                  image: t.image || productImages[t.id] || "/images/products/serum-bottles-1.png",
+                                })}
+                              />
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filtered.map((t, index) => (
+                    <motion.div
+                      key={t.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <TreatmentCard
+                        treatment={t}
+                        image={t.image || productImages[t.id] || "/images/products/serum-bottles-1.png"}
+                        onAddToCart={() => addItem({
+                          id: t.id,
+                          name: t.name,
+                          description: t.tagline,
+                          price: t.price,
+                          image: t.image || productImages[t.id] || "/images/products/serum-bottles-1.png",
+                        })}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

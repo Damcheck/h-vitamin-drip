@@ -1,4 +1,5 @@
-import { getTreatmentBySlug } from "@/lib/products"
+import { supabase } from "@/lib/supabase"
+import type { Treatment } from "@/lib/products"
 import { notFound } from "next/navigation"
 import { AIHeader } from "@/components/ai-theme/ai-header"
 import { AIFooter } from "@/components/ai-theme/ai-footer"
@@ -15,9 +16,28 @@ export default async function TreatmentPage({ params }: { params: Promise<{ slug
   // Await the params before using them as per Next.js 15+ best practices
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
-  const treatment = getTreatmentBySlug(slug)
+  const { data: d, error } = await supabase.from('products').select('*').eq('slug', slug).single()
+  
+  if (error || !d) notFound()
 
-  if (!treatment) notFound()
+  const treatment: Treatment = {
+    id: d.id,
+    name: d.name,
+    slug: d.slug,
+    category: d.category,
+    tagline: d.tagline,
+    description: d.description,
+    longDescription: d.description,
+    price: Number(d.price),
+    originalPrice: d.original_price ? Number(d.original_price) : undefined,
+    image: d.image,
+    duration: d.duration,
+    featured: d.featured,
+    keyIngredients: d.ingredients || [],
+    benefits: d.benefits || [],
+    whoIsItFor: d.who_is_it_for || "",
+    disclaimer: d.disclaimer || "",
+  }
 
   return (
     <main className="min-h-screen bg-[#F4F1E9]">
