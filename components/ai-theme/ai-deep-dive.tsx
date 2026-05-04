@@ -34,19 +34,18 @@ export function AIDeepDive() {
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           className="w-full lg:w-1/2"
         >
-          <p className="text-[#606864] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">FEATURE DEEP DIVE</p>
+          <p className="text-[#606864] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR STORY</p>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#132B23] leading-tight mb-8">
-            THE HVITAMIN DIVE:<br/>
-            A SYNERGISTIC<br/>
-            FOR RADIANCE
+            MEET OUR<br/>
+            FOUNDER,<br/>
+            GLORIA
           </h2>
           <p className="text-[#606864] text-base leading-relaxed mb-10 max-w-lg">
-            A closer look into our bespoke formulated supplements designed for daily wellness. 
-            Infused with essential compounds, carefully selected for maximum absorption and clinical efficacy.
+            A dedicated and registered nurse with a heart for healing and passion for improving lives, began her journey in 2009. After years of training and medical practice in national health service, she felt a calling to explore a different path that allows her to combine her nursing expertise with her passion for holistic health.
           </p>
           
-          <Link href="/contact" className="inline-block bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest shadow-gold hover:scale-105 transition-all duration-300">
-            Join Our Circle
+          <Link href="/about" className="inline-block bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest shadow-gold hover:scale-105 transition-all duration-300">
+            Read Full Story
           </Link>
         </motion.div>
 

@@ -129,12 +129,18 @@ export function AIFooter() {
                   HV
                 </div>
                 <span className="font-serif text-lg tracking-wide text-[#EBE7DF] group-hover:text-[#C4A67B] transition-colors duration-300">
-                  HvitaminDrip
+                  H Vitamin Drip
                 </span>
               </Link>
               <p className="text-[#606864] text-xs leading-loose mb-6">
-                Building multi-layer luxury wellness experiences for the modern soul.
+                Main Location: 13 Welling High Street DA16 1TR<br/>
+                Sittingbourne, Kent, England
               </p>
+              <div className="flex flex-col gap-2 text-[#606864] text-xs mb-6">
+                <span>Mon – Fri: 8am – 8pm</span>
+                <span>Saturday: 9am – 9pm</span>
+                <span>Sunday: 10am – 4pm</span>
+              </div>
               <div className="flex flex-col gap-2 text-[#606864] text-xs">
                 <span>&copy; 2026 Hvitamin Drip</span>
                 <span>All rights reserved.</span>
@@ -144,27 +150,27 @@ export function AIFooter() {
             <div>
               <h4 className="text-[#DBC297] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">Treatments</h4>
               <ul className="flex flex-col gap-4 text-[#EBE7DF] text-xs">
-                <li><Link href="/treatments" className="hover:text-[#C4A67B] transition-colors">IV Drips</Link></li>
-                <li><Link href="/treatments" className="hover:text-[#C4A67B] transition-colors">Boosters</Link></li>
-                <li><Link href="/about" className="hover:text-[#C4A67B] transition-colors">Wellness</Link></li>
-                <li><Link href="/about" className="hover:text-[#C4A67B] transition-colors">Anti-Aging</Link></li>
+                <li><Link href="/treatments" className="hover:text-[#C4A67B] transition-colors">Vitamin IV Drips</Link></li>
+                <li><Link href="/treatments" className="hover:text-[#C4A67B] transition-colors">Vitamin Injections</Link></li>
+                <li><Link href="/about" className="hover:text-[#C4A67B] transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-[#C4A67B] transition-colors">Contact</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-[#DBC297] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">Resources</h4>
               <ul className="flex flex-col gap-4 text-[#EBE7DF] text-xs">
-                <li><Link href="/blog" className="hover:text-[#C4A67B] transition-colors">Journal</Link></li>
-                <li><Link href="/about" className="hover:text-[#C4A67B] transition-colors">Science</Link></li>
-                <li><Link href="/faqs" className="hover:text-[#C4A67B] transition-colors">FAQ</Link></li>
+                <li><Link href="/faqs" className="hover:text-[#C4A67B] transition-colors">FAQs</Link></li>
+                <li><Link href="/aftercare" className="hover:text-[#C4A67B] transition-colors">Aftercare</Link></li>
+                <li><Link href="/become-a-partner" className="hover:text-[#C4A67B] transition-colors">Become a partner</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-[#DBC297] text-[10px] uppercase tracking-[0.2em] font-bold mb-6">Legal</h4>
               <ul className="flex flex-col gap-4 text-[#EBE7DF] text-xs">
-                <li><Link href="/privacy-policy" className="hover:text-[#C4A67B] transition-colors">Privacy Policy</Link></li>
-                <li><Link href="#" className="hover:text-[#C4A67B] transition-colors">Terms of Service</Link></li>
+                <li><Link href="/terms-of-service" className="hover:text-[#C4A67B] transition-colors">Terms and Conditions</Link></li>
+                <li><Link href="/terms-of-service" className="hover:text-[#C4A67B] transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>

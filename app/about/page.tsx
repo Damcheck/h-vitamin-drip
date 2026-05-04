@@ -78,11 +78,11 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-[#C4A67B]/30 shadow-gold"
             >
-              <Image src="/ai_hero_sofa_1777827823407.png" alt="Mission" fill className="object-cover" />
+              <Image src="/ai_hero_sofa_1777827823407.png" alt="Gloria" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#132B23]/60 to-transparent"></div>
               <div className="absolute bottom-8 left-8 right-8 bg-[#FCFAF7]/20 backdrop-blur-xl border border-[#C4A67B]/30 rounded-2xl p-6 text-center">
-                <p className="text-[#DBC297] text-[10px] uppercase tracking-widest font-bold mb-2">TRUSTED BY</p>
-                <p className="font-serif text-2xl text-[#EBE7DF]">5,000+ Nigerians</p>
+                <p className="text-[#DBC297] text-[10px] uppercase tracking-widest font-bold mb-2">FOUNDER & MANAGING DIRECTOR</p>
+                <p className="font-serif text-2xl text-[#EBE7DF]">Gloria</p>
               </div>
             </motion.div>
             
@@ -92,53 +92,70 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR MISSION</p>
+              <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR STORY</p>
               <h2 className="font-serif text-4xl md:text-5xl text-[#132B23] leading-tight mb-8 uppercase">
-                Premium Wellness,<br />Delivered.
+                Born Out of Passion For Wellness
               </h2>
               <div className="space-y-6 text-[#606864] text-sm leading-loose">
                 <p>
-                  H Vitamin Drip was founded with a simple belief: everyone deserves access to clinical-grade wellness care without leaving the comfort of their home. We are proud to be the first nurse-led, home-delivery IV therapy service in Nigeria.
+                  Our founder, Gloria, a dedicated and registered nurse with a heart for healing and passion for improving lives, began her journey in 2009 after completing her nursing program. After years of training and medical practice in national health service, she felt a calling to explore a different path that allows her to combine her nursing expertise with her passion for holistic health. Following this calling with seeking a more holistic approach to health and wellness, Gloria ventured into the world of vitamin drip therapy.
                 </p>
                 <p>
-                  Every treatment is administered by a registered nurse, using pharmaceutical-grade ingredients sourced from certified suppliers. Your health, safety, and ultimate comfort are our absolute priorities.
+                  With a solid background in nursing and deep understanding of human body and given to months of intensive study and research, consultations, and collaborating with experts in the field to ensure her new venture offers the highest quality care to those seeking her services. In 2021, Holistic Vitamin Drips & Wellness Product officially launched, where she combines her nursing expertise with the power of IV therapy.
+                </p>
+                <p>
+                  Today, the lofty idea of Gloria thrives, offering a warm and inviting space where clients can receive personalized treatments tailored to their individual needs. Her dedication to providing exceptional care has built a loyal following, and she continues to be a beacon of wellness in her community.
+                </p>
+                <p>
+                  With each drip administered and each life touched, our founder is living the purpose of her calling and making a difference in the world. Holistic Vitamins Drip and Wellness’ journey was not just a venture but a calling—a calling to heal, nurture, and empower others on their path to well-being.
                 </p>
               </div>
               <Link
-                href="/shop"
+                href="/treatments"
                 className="mt-10 inline-flex items-center gap-4 bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-gold hover:scale-105 transition-all duration-300"
               >
-                Explore Treatments &rarr;
+                Experience the difference today &rarr;
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Values / Team */}
       <section className="py-32 bg-gradient-to-b from-[#E3E8E1] to-[#F4F1E9] border-t border-[#C4A67B]/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
-            <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">OUR ETHOS</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#132B23] uppercase">The Standard of Care</h2>
+            <p className="text-[#C4A67B] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">MEET THE TEAM</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#132B23] uppercase">People Behind The Scene</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className="bg-[#FCFAF7]/40 backdrop-blur-xl rounded-[2rem] p-8 border border-[#C4A67B]/30 hover:border-[#C4A67B]/70 hover:shadow-gold transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full border border-[#C4A67B] flex items-center justify-center mb-6 text-[#C4A67B] font-serif text-xl">
-                  {i + 1}
-                </div>
-                <h3 className="font-serif text-xl text-[#132B23] mb-4">{v.title}</h3>
-                <p className="text-[#606864] text-xs leading-relaxed">{v.desc}</p>
-              </motion.div>
-            ))}
+          <div className="grid sm:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-[#FCFAF7]/40 backdrop-blur-xl rounded-[2rem] p-8 border border-[#C4A67B]/30 hover:border-[#C4A67B]/70 hover:shadow-gold transition-all duration-300"
+            >
+              <h3 className="font-serif text-2xl text-[#132B23] mb-2">Gloria</h3>
+              <p className="text-[#C4A67B] text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Founder & Managing Director</p>
+              <p className="text-[#606864] text-xs leading-relaxed">
+                Gloria is an advanced nurse practitioner and dedicated healthcare professional with a passion for optimizing patient well-being. As an Advanced Nurse Practitioner, she brings a wealth of clinical expertise and holistic care to her practice. Gloria is committed to providing personalized and compassionate care to her patients.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="bg-[#FCFAF7]/40 backdrop-blur-xl rounded-[2rem] p-8 border border-[#C4A67B]/30 hover:border-[#C4A67B]/70 hover:shadow-gold transition-all duration-300"
+            >
+              <h3 className="font-serif text-2xl text-[#132B23] mb-2">Hilda</h3>
+              <p className="text-[#C4A67B] text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Assistant Managing Director in Clinical Practice</p>
+              <p className="text-[#606864] text-xs leading-relaxed">
+                An experienced nurse, Hilda has been a general nurse and midwife for over 40 years. She currently works in an acute setting and has a passion for teaching the younger generation and delivering exceptional care to people. Hilda is an expert in venepuncture and calculation.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>

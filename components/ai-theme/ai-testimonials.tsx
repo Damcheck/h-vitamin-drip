@@ -4,22 +4,22 @@ import { motion } from 'framer-motion'
 export function AITestimonials() {
   const reviews = [
     {
-      text: "H-Vitamin Drip is incredible. The space is beautiful and the treatments make me feel instantly revitalized. Highly recommend their immunity blend.",
-      author: "Rachel K.",
+      text: "Holistic vitamin drip staff Gloria came to my house to administer the Myers cocktail. She is so professional, very patient as I have needle phobia and I feel great after my drip infusion, I will highly recommend them for all your vitamins and wellness products.",
+      author: "Claire",
       role: "Verified Client",
-      tag: "PREMIUM"
+      tag: "MYERS COCKTAIL"
     },
     {
-      text: "I come here before every major event. The glow I get from the Radiance drip is unmatched. The service is discrete, professional, and purely luxury.",
-      author: "Stella J.",
+      text: "This Hvitamindrip literally changed my life. As a mum of 4 and a businesswoman, my life is so hectic that I was always so tired until I got introduced to this Hvitamindrip. Since I started taking it, I have got my energy back, my skin glows.",
+      author: "Claudine",
       role: "Verified Client",
-      tag: "ANTI-AGING"
+      tag: "ENERGY DRIP"
     },
     {
-      text: "As an athlete, recovery is everything. H-Vitamin Drip provides the exact cellular hydration I need. Top tier experience from start to finish.",
-      author: "Marcus D.",
-      role: "Pro Athlete",
-      tag: "RECOVERY"
+      text: "The Vitamin drip was amazing! Prior to receiving it I was constantly feeling tired, dull and exhausted, but after taking it I feel lighter, re-energised and like myself again. My friends have also told me that my face looks a lot brighter.",
+      author: "Eniola",
+      role: "Verified Client",
+      tag: "SKIN GLOW"
     }
   ]
 
@@ -48,7 +48,7 @@ export function AITestimonials() {
         >
           <p className="text-[#606864] text-[10px] uppercase tracking-[0.2em] font-bold mb-4">TESTIMONIALS</p>
           <h2 className="font-serif text-4xl md:text-5xl text-[#132B23]">
-            A TESTAMENT TO TRANSFORMATION.
+            WHAT OUR CUSTOMERS ARE SAYING ABOUT US.
           </h2>
         </motion.div>
 

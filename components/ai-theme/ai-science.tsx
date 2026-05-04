@@ -15,10 +15,10 @@ export function AIScience() {
   const scaleBg = useTransform(scrollYProgress, [0, 1], [1, 1.15])
 
   const cards = [
-    { title: "Clear Focus", desc: "Level 102", icon: "💧" },
-    { title: "Brighten", desc: "Level 102", icon: "✨" },
-    { title: "Rejuvenate", desc: "Level 102", icon: "🌱" },
-    { title: "No Time", desc: "Level 102", icon: "⏳" }
+    { title: "In Your Home", desc: "Convenient", icon: "🏠" },
+    { title: "In Your Office", desc: "Professional", icon: "🏢" },
+    { title: "At Our Space", desc: "Private Lounge", icon: "✨" },
+    { title: "No Minimum", desc: "Accessible", icon: "💎" }
   ];
 
   const gridVariants = {
@@ -57,10 +57,11 @@ export function AIScience() {
           className="max-w-xl"
         >
           <h2 className="font-serif text-5xl md:text-6xl text-[#EBE7DF] leading-[1.1] mb-8">
-            THE SCIENCE OF LUMINESCENCE.<br/>
-            TARGETED.<br/>
-            POWERFUL. PURE.
+            HOLISTIC VITAMIN DRIPS & WELLNESS
           </h2>
+          <p className="text-[#C4A67B] text-lg mb-8 leading-relaxed">
+            We help you understand the best ways to tend to your body through advanced testing practices and catered treatments that optimize your health and vitality.
+          </p>
           <Link href="/about" className="inline-block bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:shadow-gold hover:scale-105 transition-all duration-300">
             Learn more &rarr;
           </Link>

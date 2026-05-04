@@ -39,13 +39,12 @@ export function AIHero() {
           </motion.div>
 
           {/* Main Headline */}
-          <motion.h1 variants={itemVariants} className="text-center font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] text-[#132B23] max-w-5xl mx-auto mb-6">
-            BEYOND VITALITY.<br/>DELIVERED TO YOU.
+          <motion.h1 variants={itemVariants} className="text-center font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] text-[#132B23] max-w-6xl mx-auto mb-6 uppercase">
+            FEEL THE DIFFERENCE WITH PERSONALISED VITAMIN DRIPS
           </motion.h1>
 
           <motion.p variants={itemVariants} className="text-center text-[#606864] max-w-2xl mx-auto text-sm md:text-base tracking-wide mb-16 px-4">
-            Experience scientifically-formulated IV therapies inside our private lounge. 
-            Highly-tailored treatments for wellness, recovery, aesthetics, and pure energy.
+            We’re globally recognised as an intravenous and intramuscular nutrition clinic, we offer personalised therapies to optimize nutrient delivery and support overall health.
           </motion.p>
         </motion.div>
       </motion.div>
