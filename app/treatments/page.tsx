@@ -252,7 +252,7 @@ export default function TreatmentsPage() {
             Message us on WhatsApp and our registered nurses will help you choose the best treatment for your health goals.
           </p>
           <a
-            href="https://wa.me/2348000000000"
+            href="https://wa.me/447495393025"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white text-foreground px-8 py-4 rounded-full font-semibold text-sm hover:bg-white/90 boty-transition boty-shadow"

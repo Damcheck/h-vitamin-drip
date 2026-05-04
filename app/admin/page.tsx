@@ -24,6 +24,7 @@ function AdminLoginInner() {
   useEffect(() => {
     if (searchParams.get('expired') === '1') {
       setError("Your session has expired. Please sign in again.")
+      setLoading(false)
     }
   }, [searchParams])
 
@@ -100,6 +101,11 @@ function AdminLoginInner() {
         }
         setLoading(false)
         return
+      }
+
+      // Set cookie for middleware
+      if (data.session) {
+        document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${data.session.expires_in}; SameSite=Lax; Secure`
       }
 
       // Success — clear attempts and sensitive data from memory

@@ -63,7 +63,7 @@ export default function PrivacyPolicyPage() {
                 },
                 {
                   title: "11. Contact Us",
-                  content: "If you have any questions about this Privacy Policy or our privacy practices, please contact us at: hello@hvitamindrip.ng or +234 800 000 0000. You may also write to us at: H Vitamin Drip, Lagos, Nigeria.",
+                  content: "If you have any questions about this Privacy Policy or our privacy practices, please contact us at: info@hvitamindrip.co.uk or +44 7495 393025. You may also write to us at: H Vitamin Drip, Lagos, Nigeria.",
                 },
               ].map((section) => (
                 <div key={section.title} className="border-b border-border/30 pb-8 last:border-0">

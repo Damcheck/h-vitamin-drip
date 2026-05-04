@@ -39,6 +39,8 @@ const ADMIN_PROTECTED = [
   '/admin/orders',
   '/admin/content',
   '/admin/settings',
+  '/admin/inbox',
+  '/admin/newsletter',
 ]
 
 // Protected API paths
@@ -153,8 +155,8 @@ async function validateToken(token: string, request: NextRequest): Promise<boole
 export const config = {
   matcher: [
     // All admin pages except the login page itself
-    '/admin/:path(dashboard|products|orders|content|settings)/:path*',
-    '/admin/:path(dashboard|products|orders|content|settings)',
+    '/admin/:path(dashboard|products|orders|content|settings|inbox|newsletter)/:path*',
+    '/admin/:path(dashboard|products|orders|content|settings|inbox|newsletter)',
     // All admin API routes
     '/api/admin/:path*',
     // Apply security headers to all pages

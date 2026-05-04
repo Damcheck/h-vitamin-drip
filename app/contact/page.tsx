@@ -7,8 +7,8 @@ import { AIFooter } from "@/components/ai-theme/ai-footer"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
 
 const contactInfo = [
-  { icon: Phone, label: "Phone / WhatsApp", value: "+234 800 000 0000", href: "tel:+2348000000000" },
-  { icon: Mail, label: "Email", value: "hello@hvitamindrip.ng", href: "mailto:hello@hvitamindrip.ng" },
+  { icon: Phone, label: "Phone / WhatsApp", value: "+44 7495 393025", href: "tel:+447495393025" },
+  { icon: Mail, label: "Email", value: "info@hvitamindrip.co.uk", href: "mailto:info@hvitamindrip.co.uk" },
   { icon: MapPin, label: "Locations", value: "Lagos · Abuja · Port Harcourt", href: "#" },
   { icon: Clock, label: "Hours", value: "Mon–Sat: 8am – 8pm", href: "#" },
 ]
@@ -17,9 +17,28 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", service: "" })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError("")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+
+      if (!res.ok) throw new Error("Failed to submit form")
+      setSubmitted(true)
+    } catch (err) {
+      setError("An error occurred. Please try again or contact us via WhatsApp.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -83,7 +102,7 @@ export default function ContactPage() {
                   Message our clinical team directly on WhatsApp for same-day concierge bookings.
                 </p>
                 <a
-                  href="https://wa.me/2348000000000"
+                  href="https://wa.me/447495393025"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-gold hover:scale-105 transition-all duration-300"
@@ -118,6 +137,7 @@ export default function ContactPage() {
             ) : (
               <>
                 <h3 className="font-serif text-3xl text-[#132B23] mb-8">Initiate Contact</h3>
+                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
@@ -179,9 +199,10 @@ export default function ContactPage() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full mt-4 bg-[#132B23] text-[#DBC297] py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-[#1a382e] hover:-translate-y-1 transition-all duration-300"
+                    disabled={loading}
+                    className="w-full mt-4 bg-[#132B23] text-[#DBC297] py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-[#1a382e] hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:hover:translate-y-0"
                   >
-                    Submit Request
+                    {loading ? "Transmitting..." : "Submit Request"}
                   </button>
                 </form>
               </>

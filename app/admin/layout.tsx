@@ -6,7 +6,7 @@ import Link from "next/link"
 import {
   LayoutDashboard, Package, ShoppingCart,
   FileText, Settings, LogOut, Menu, X,
-  Sparkles, Bell, Shield
+  Sparkles, Bell, Shield, MessageSquare, Mail
 } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 
@@ -14,6 +14,8 @@ const nav = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products",  label: "Treatments",  icon: Package },
   { href: "/admin/orders",    label: "Bookings",  icon: ShoppingCart },
+  { href: "/admin/inbox",     label: "Inbox",     icon: MessageSquare },
+  { href: "/admin/newsletter",label: "Newsletter",icon: Mail },
   { href: "/admin/content",   label: "Content",   icon: FileText },
   { href: "/admin/settings",  label: "Settings",  icon: Settings },
 ]
@@ -55,6 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
+    document.cookie = 'sb-access-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
     router.push("/admin")
   }
 

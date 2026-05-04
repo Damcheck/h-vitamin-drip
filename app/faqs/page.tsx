@@ -180,7 +180,7 @@ export default function FAQsPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/2348000000000"
+                href="https://wa.me/447495393025"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full text-[14px] font-bold hover:bg-[#1dba58] transition-all"

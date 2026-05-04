@@ -11,7 +11,7 @@ import { supabase } from "@/lib/supabase"
 
 type Step = "details" | "confirm" | "success"
 
-const WHATSAPP_NUMBER = "2348000000000"
+const WHATSAPP_NUMBER = "447495393025"
 
 const productImages: Record<string, string> = {
   "energy-drip": "/images/products/serum-bottles-1.png",

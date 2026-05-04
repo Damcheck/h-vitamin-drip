@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react"
+
 import { motion } from "framer-motion"
 import { AIHeader } from "@/components/ai-theme/ai-header"
 import { AIFooter } from "@/components/ai-theme/ai-footer"
@@ -66,6 +68,32 @@ const posts = [
 const categories = ["All", "Education", "Skin Care", "Anti-Ageing", "Guide", "Wellness", "Immunity"]
 
 export default function BlogPage() {
+  const [email, setEmail] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email) return
+    setLoading(true)
+    setStatus("idle")
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error("Failed")
+      setStatus("success")
+      setEmail("")
+    } catch (err) {
+      setStatus("error")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#F4F1E9]">
       <AIHeader />
@@ -207,15 +235,23 @@ export default function BlogPage() {
               <h2 className="text-[28px] font-bold mb-2">Get wellness tips in your inbox</h2>
               <p className="text-[14px] text-white/60">Subscribe and get 25% off your first treatment.</p>
             </div>
-            <form onSubmit={(e) => e.preventDefault()} className="flex gap-3 shrink-0">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-white/10 text-white placeholder:text-white/40 border border-white/20 rounded-full px-5 py-3 text-[14px] outline-none focus:border-primary w-64"
-              />
-              <button type="submit" className="bg-primary text-primary-foreground px-6 py-3 rounded-full text-[14px] font-bold hover:bg-primary/80 transition-all whitespace-nowrap">
-                Subscribe
-              </button>
+            <form onSubmit={handleSubscribe} className="flex flex-col gap-2 shrink-0">
+              <div className="flex gap-3">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="bg-white/10 text-white placeholder:text-white/40 border border-white/20 rounded-full px-5 py-3 text-[14px] outline-none focus:border-primary w-64 disabled:opacity-50"
+                  disabled={loading || status === "success"}
+                />
+                <button type="submit" disabled={loading || status === "success"} className="bg-primary text-primary-foreground px-6 py-3 rounded-full text-[14px] font-bold hover:bg-primary/80 transition-all whitespace-nowrap disabled:opacity-50">
+                  {loading ? "..." : "Subscribe"}
+                </button>
+              </div>
+              {status === "success" && <p className="text-[#25D366] text-xs px-4">Successfully subscribed!</p>}
+              {status === "error" && <p className="text-red-400 text-xs px-4">Failed to subscribe. Please try again.</p>}
             </form>
           </div>
         </div>

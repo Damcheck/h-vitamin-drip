@@ -12,7 +12,7 @@ export function CartDrawer() {
   const total = subtotal
 
   const handleWhatsAppCheckout = () => {
-    const phoneNumber = "2348000000000"
+    const phoneNumber = "447495393025"
     const text = `Hello! I would like to book the following treatments:\n\n${items
       .map((item) => `- ${item.quantity}x ${item.name} (₦${(item.price * item.quantity).toLocaleString()})`)
       .join("\n")}\n\nTotal: ₦${total.toLocaleString()}`

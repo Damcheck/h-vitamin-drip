@@ -1,41 +1,62 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { CheckCircle2 } from "lucide-react"
 
 export default function AdminContentPage() {
   const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  
   const [content, setContent] = useState({
-    // Hero
-    heroHeadline: "Personalized treatments made with Rx ingredients and supplements.",
-    heroCta: "Shop now",
-    // Announcement
-    announcementBar: "Free consultation with every booking · Same-day appointments in Lagos & Abuja",
-    // Best Sellers title
-    bestSellersTitle: "Best seller",
-    // Feature section
-    featureHeadline: "Clarify pores and minimize Imperfections for clearer skin",
-    // Newsletter
-    newsletterHeadline: "Subscribe now and get 25% off on your first purchase.",
-    newsletterSub: "Join thousands of wellness enthusiasts and receive exclusive offers.",
-    // About
-    aboutMission: "Making premium wellness accessible to every Nigerian",
-    // Contact details
-    phone: "+234 800 000 0000",
-    email: "hello@hvitamindrip.ng",
-    locations: "Lagos, Abuja, Port Harcourt",
-    hours: "Mon–Sat: 8am – 8pm",
-    whatsapp: "2348000000000",
-    // Social links
-    instagram: "https://www.instagram.com/",
-    facebook: "https://facebook.com/",
-    twitter: "https://twitter.com/",
+    hero_headline: "",
+    hero_cta: "",
+    announcement_bar: "",
+    best_sellers_title: "",
+    feature_headline: "",
+    newsletter_headline: "",
+    newsletter_sub: "",
+    about_mission: "",
+    contact_phone: "",
+    contact_email: "",
+    locations: "",
+    hours: "",
+    contact_whatsapp: "",
+    instagram_url: "",
+    facebook_url: "",
+    twitter_url: "",
   })
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetch('/api/admin/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error && Object.keys(data).length > 0) {
+          setContent(prev => ({ ...prev, ...data }))
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    setSaving(true)
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(content)
+      })
+      if (res.ok) {
+        setSaved(true)
+        setTimeout(() => setSaved(false), 3000)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSaving(false)
+    }
   }
 
   const textField = (label: string, key: keyof typeof content, multi = false) => (
@@ -44,13 +65,13 @@ export default function AdminContentPage() {
       {multi ? (
         <textarea
           rows={3}
-          value={content[key]}
+          value={content[key] || ""}
           onChange={(e) => setContent({ ...content, [key]: e.target.value })}
           className="w-full bg-gray-50 border border-gray-200 rounded-[12px] px-4 py-3 text-[14px] outline-none focus:border-[#043222] resize-none transition-all"
         />
       ) : (
         <input
-          value={content[key]}
+          value={content[key] || ""}
           onChange={(e) => setContent({ ...content, [key]: e.target.value })}
           className="w-full bg-gray-50 border border-gray-200 rounded-[12px] px-4 py-3 text-[14px] outline-none focus:border-[#043222] transition-all"
         />
@@ -85,41 +106,41 @@ export default function AdminContentPage() {
       {/* Homepage Hero */}
       <div className="bg-white rounded-[20px] border border-gray-100 p-6 flex flex-col gap-4">
         <SectionTitle title="Homepage Hero" desc="The main headline and CTA button text" />
-        {textField("Hero Headline", "heroHeadline", true)}
-        {textField("CTA Button Text", "heroCta")}
-        {textField("Announcement Bar Text", "announcementBar")}
+        {textField("Hero Headline", "hero_headline", true)}
+        {textField("CTA Button Text", "hero_cta")}
+        {textField("Announcement Bar Text", "announcement_bar")}
       </div>
 
       {/* Sections */}
       <div className="bg-white rounded-[20px] border border-gray-100 p-6 flex flex-col gap-4">
         <SectionTitle title="Homepage Sections" />
-        {textField("Best Sellers Section Title", "bestSellersTitle")}
-        {textField("Dark Feature Section Headline", "featureHeadline", true)}
+        {textField("Best Sellers Section Title", "best_sellers_title")}
+        {textField("Dark Feature Section Headline", "feature_headline", true)}
       </div>
 
       {/* Newsletter */}
       <div className="bg-white rounded-[20px] border border-gray-100 p-6 flex flex-col gap-4">
         <SectionTitle title="Newsletter Section" />
-        {textField("Newsletter Headline", "newsletterHeadline", true)}
-        {textField("Newsletter Subtext", "newsletterSub", true)}
+        {textField("Newsletter Headline", "newsletter_headline", true)}
+        {textField("Newsletter Subtext", "newsletter_sub", true)}
       </div>
 
       {/* Contact Details */}
       <div className="bg-white rounded-[20px] border border-gray-100 p-6 flex flex-col gap-4">
         <SectionTitle title="Contact Details" desc="Shown on contact page and footer" />
-        {textField("Phone Number", "phone")}
-        {textField("Email Address", "email")}
+        {textField("Phone Number", "contact_phone")}
+        {textField("Email Address", "contact_email")}
         {textField("Locations", "locations")}
         {textField("Business Hours", "hours")}
-        {textField("WhatsApp Number (digits only)", "whatsapp")}
+        {textField("WhatsApp Number (digits only)", "contact_whatsapp")}
       </div>
 
       {/* Social Links */}
       <div className="bg-white rounded-[20px] border border-gray-100 p-6 flex flex-col gap-4">
         <SectionTitle title="Social Media Links" />
-        {textField("Instagram URL", "instagram")}
-        {textField("Facebook URL", "facebook")}
-        {textField("Twitter/X URL", "twitter")}
+        {textField("Instagram URL", "instagram_url")}
+        {textField("Facebook URL", "facebook_url")}
+        {textField("Twitter/X URL", "twitter_url")}
       </div>
     </form>
   )

@@ -17,10 +17,29 @@ const igPosts = [
 export function Newsletter() {
   const [email, setEmail] = useState("")
   const [done, setDone] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) { setDone(true); setEmail("") }
+    if (!email) return
+    setLoading(true)
+    setError("")
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error("Failed")
+      setDone(true)
+      setEmail("")
+    } catch (err) {
+      setError("Failed to subscribe. Please try again.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -170,12 +189,14 @@ export function Newsletter() {
                       />
                       <button
                         type="submit"
-                        className="w-full py-4 rounded-full font-bold text-[15px] transition-all hover:opacity-90"
+                        disabled={loading}
+                        className="w-full py-4 rounded-full font-bold text-[15px] transition-all hover:opacity-90 disabled:opacity-50"
                         style={{ background: "#BFF74C", color: "#043222" }}
                       >
-                        Claim my 25% discount
+                        {loading ? "..." : "Claim my 25% discount"}
                       </button>
                     </form>
+                    {error && <p className="text-red-400 text-xs text-center mt-2">{error}</p>}
                     <p className="text-[11px] text-white/30 text-center mt-4">
                       No spam, ever. Unsubscribe any time.
                     </p>

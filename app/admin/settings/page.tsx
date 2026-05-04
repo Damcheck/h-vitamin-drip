@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { CheckCircle2, Eye, EyeOff, Shield, Bell, Globe, LogOut } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export default function AdminSettingsPage() {
   const router = useRouter()
@@ -10,25 +11,53 @@ export default function AdminSettingsPage() {
   const [showCurrentPw, setShowCurrentPw] = useState(false)
   const [showNewPw, setShowNewPw] = useState(false)
   const [settings, setSettings] = useState({
-    siteName: "H Vitamin Drip",
-    siteUrl: "https://hvitamindrip.ng",
-    currency: "NGN",
-    timezone: "Africa/Lagos",
-    emailNotifications: true,
-    whatsappNotifications: true,
-    newBookingAlert: true,
-    cancellationAlert: true,
-    notificationEmail: "admin@hvitamindrip.ng",
-    notificationPhone: "+2348000000000",
+    site_name: "",
+    site_url: "",
+    currency: "",
+    timezone: "",
+    email_notifications: true,
+    whatsapp_notifications: true,
+    new_booking_alert: true,
+    cancellation_alert: true,
+    notification_email: "",
+    notification_phone: "",
   })
   const [passwords, setPasswords] = useState({ current: "", newPw: "", confirm: "" })
   const [pwError, setPwError] = useState("")
   const [pwSuccess, setPwSuccess] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetch('/api/admin/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error && Object.keys(data).length > 0) {
+          setSettings(prev => ({ ...prev, ...data }))
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    setSaving(true)
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
+      })
+      if (res.ok) {
+        setSaved(true)
+        setTimeout(() => setSaved(false), 3000)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handlePasswordChange = (e: React.FormEvent) => {
@@ -88,15 +117,15 @@ export default function AdminSettingsPage() {
 
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { label: "Site Name", key: "siteName" },
-            { label: "Site URL", key: "siteUrl" },
+            { label: "Site Name", key: "site_name" },
+            { label: "Site URL", key: "site_url" },
             { label: "Currency", key: "currency" },
             { label: "Timezone", key: "timezone" },
           ].map(({ label, key }) => (
             <div key={key}>
               <label className="text-[12px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 block">{label}</label>
               <input
-                value={settings[key as keyof typeof settings] as string}
+                value={settings[key as keyof typeof settings] as string || ""}
                 onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
                 className="w-full bg-gray-50 border border-gray-200 rounded-[12px] px-4 py-3 text-[14px] outline-none focus:border-[#043222] transition-all"
               />
@@ -127,10 +156,10 @@ export default function AdminSettingsPage() {
 
         <div className="flex flex-col gap-4">
           {[
-            { label: "Email Notifications", sub: "Receive booking alerts via email", key: "emailNotifications" },
-            { label: "WhatsApp Notifications", sub: "Receive booking alerts via WhatsApp", key: "whatsappNotifications" },
-            { label: "New Booking Alert", sub: "Alert when a new booking is made", key: "newBookingAlert" },
-            { label: "Cancellation Alert", sub: "Alert when a booking is cancelled", key: "cancellationAlert" },
+            { label: "Email Notifications", sub: "Receive booking alerts via email", key: "email_notifications" },
+            { label: "WhatsApp Notifications", sub: "Receive booking alerts via WhatsApp", key: "whatsapp_notifications" },
+            { label: "New Booking Alert", sub: "Alert when a new booking is made", key: "new_booking_alert" },
+            { label: "Cancellation Alert", sub: "Alert when a booking is cancelled", key: "cancellation_alert" },
           ].map(({ label, sub, key }) => (
             <div key={key} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
               <div>
@@ -149,16 +178,16 @@ export default function AdminSettingsPage() {
           <div>
             <label className="text-[12px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 block">Notification Email</label>
             <input
-              value={settings.notificationEmail}
-              onChange={(e) => setSettings({ ...settings, notificationEmail: e.target.value })}
+              value={settings.notification_email || ""}
+              onChange={(e) => setSettings({ ...settings, notification_email: e.target.value })}
               className="w-full bg-gray-50 border border-gray-200 rounded-[12px] px-4 py-3 text-[14px] outline-none focus:border-[#043222]"
             />
           </div>
           <div>
             <label className="text-[12px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 block">Notification Phone</label>
             <input
-              value={settings.notificationPhone}
-              onChange={(e) => setSettings({ ...settings, notificationPhone: e.target.value })}
+              value={settings.notification_phone || ""}
+              onChange={(e) => setSettings({ ...settings, notification_phone: e.target.value })}
               className="w-full bg-gray-50 border border-gray-200 rounded-[12px] px-4 py-3 text-[14px] outline-none focus:border-[#043222]"
             />
           </div>

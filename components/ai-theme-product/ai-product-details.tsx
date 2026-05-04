@@ -73,7 +73,7 @@ export function AIProductDetails({ treatment }: { treatment: any }) {
               Add to Cart
             </button>
             <a 
-              href={`https://wa.me/2348000000000?text=Hi, I want to buy ${treatment.name}`}
+              href={`https://wa.me/447495393025?text=Hi, I want to buy ${treatment.name}`}
               className="w-full md:w-3/4 bg-[#132B23] text-[#EBE7DF] py-4 rounded-full text-sm font-bold uppercase tracking-widest shadow-lg hover:scale-105 transition-all duration-300 text-center"
             >
               Buy Now
