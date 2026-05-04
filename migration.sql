@@ -9,10 +9,7 @@ ALTER TABLE public.products ADD COLUMN IF NOT EXISTS who_is_it_for text;
 ALTER TABLE public.products ADD COLUMN IF NOT EXISTS disclaimer text;
 ALTER TABLE public.products ADD COLUMN IF NOT EXISTS original_price numeric;
 
--- 2. Fix bookings table (rename columns to match checkout code)
-ALTER TABLE public.bookings RENAME COLUMN IF EXISTS first_name TO client_name_tmp;
--- Only run below if bookings was created with old schema:
--- If you get an error on the next line, ignore it and move on
+-- 2. Fix bookings table — safely add any missing columns
 DO $$ BEGIN
   BEGIN ALTER TABLE public.bookings ADD COLUMN client_name text; EXCEPTION WHEN duplicate_column THEN NULL; END;
   BEGIN ALTER TABLE public.bookings ADD COLUMN client_email text; EXCEPTION WHEN duplicate_column THEN NULL; END;
@@ -20,6 +17,7 @@ DO $$ BEGIN
   BEGIN ALTER TABLE public.bookings ADD COLUMN address text; EXCEPTION WHEN duplicate_column THEN NULL; END;
   BEGIN ALTER TABLE public.bookings ADD COLUMN preferred_date date; EXCEPTION WHEN duplicate_column THEN NULL; END;
   BEGIN ALTER TABLE public.bookings ADD COLUMN preferred_time text; EXCEPTION WHEN duplicate_column THEN NULL; END;
+  BEGIN ALTER TABLE public.bookings ADD COLUMN total_amount numeric; EXCEPTION WHEN duplicate_column THEN NULL; END;
 END $$;
 
 -- 3. Temporarily allow public insert for seeding (we'll remove after)
