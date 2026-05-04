@@ -93,12 +93,12 @@ export default function AdminSettingsPage() {
         setEmailMsg({ text: error.message, type: "error" })
       } else {
         setShowOtpInput(true)
-        setEmailMsg({ text: "A 6-digit code has been sent to your new email. Please enter it below.", type: "success" })
+        setEmailMsg({ text: "An 8-digit code has been sent to your new email. Please enter it below.", type: "success" })
       }
     } else {
       // Step 2: Verify OTP
-      if (otp.length !== 6) {
-        setEmailMsg({ text: "Please enter a valid 6-digit code.", type: "error" })
+      if (otp.length !== 8) {
+        setEmailMsg({ text: "Please enter a valid 8-digit code.", type: "error" })
         setEmailLoading(false)
         return
       }
@@ -149,12 +149,12 @@ export default function AdminSettingsPage() {
         setPwMsg({ text: error.message, type: "error" })
       } else {
         setShowPwOtpInput(true)
-        setPwMsg({ text: "A 6-digit security code has been sent to your email. Enter it to confirm.", type: "success" })
+        setPwMsg({ text: "An 8-digit security code has been sent to your email. Enter it to confirm.", type: "success" })
       }
     } else {
       // Step 2: Verify OTP and then Update Password
-      if (pwOtp.length !== 6) {
-        setPwMsg({ text: "Please enter a valid 6-digit code.", type: "error" })
+      if (pwOtp.length !== 8) {
+        setPwMsg({ text: "Please enter a valid 8-digit code.", type: "error" })
         setPwLoading(false)
         return
       }
@@ -262,15 +262,15 @@ export default function AdminSettingsPage() {
 
             {showOtpInput && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#DBC297] mb-2 block">Verification Code (6 Digits)</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-[#DBC297] mb-2 block">Verification Code (8 Digits)</label>
                 <input
                   type="text"
                   required
-                  maxLength={6}
+                  maxLength={8}
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))} // Only allow digits
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xl tracking-[0.5em] text-center font-mono outline-none focus:border-[#DBC297] transition-all text-white placeholder:text-white/30"
-                  placeholder="••••••"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xl tracking-[0.25em] text-center font-mono outline-none focus:border-[#DBC297] transition-all text-white placeholder:text-white/30"
+                  placeholder="••••••••"
                 />
               </div>
             )}
@@ -282,7 +282,7 @@ export default function AdminSettingsPage() {
             )}
 
             <div className="flex gap-4 mt-2">
-              <button type="submit" disabled={emailLoading || (!showOtpInput && (!newEmail || newEmail === userEmail)) || (showOtpInput && otp.length !== 6)}
+              <button type="submit" disabled={emailLoading || (!showOtpInput && (!newEmail || newEmail === userEmail)) || (showOtpInput && otp.length !== 8)}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] shadow-[0_0_20px_rgba(219,194,151,0.2)] hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100">
                 {emailLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : (showOtpInput ? "Verify & Update" : "Send Code")}
               </button>
@@ -334,15 +334,15 @@ export default function AdminSettingsPage() {
 
             {showPwOtpInput && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#DBC297] mb-2 block">Verification Code (6 Digits)</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-[#DBC297] mb-2 block">Verification Code (8 Digits)</label>
                 <input
                   type="text"
                   required
-                  maxLength={6}
+                  maxLength={8}
                   value={pwOtp}
                   onChange={(e) => setPwOtp(e.target.value.replace(/\D/g, ''))} // Only allow digits
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xl tracking-[0.5em] text-center font-mono outline-none focus:border-[#DBC297] transition-all text-white placeholder:text-white/30"
-                  placeholder="••••••"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-xl tracking-[0.25em] text-center font-mono outline-none focus:border-[#DBC297] transition-all text-white placeholder:text-white/30"
+                  placeholder="••••••••"
                 />
               </div>
             )}
@@ -354,7 +354,7 @@ export default function AdminSettingsPage() {
             )}
 
             <div className="flex gap-4 mt-2">
-              <button type="submit" disabled={pwLoading || (!showPwOtpInput && (!passwords.newPw || !passwords.confirm)) || (showPwOtpInput && pwOtp.length !== 6)}
+              <button type="submit" disabled={pwLoading || (!showPwOtpInput && (!passwords.newPw || !passwords.confirm)) || (showPwOtpInput && pwOtp.length !== 8)}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] shadow-[0_0_20px_rgba(219,194,151,0.2)] hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100">
                 {pwLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : (showPwOtpInput ? "Verify & Update" : "Send Code")}
               </button>
