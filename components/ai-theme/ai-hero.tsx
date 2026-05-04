@@ -57,21 +57,21 @@ export function AIHero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-          className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-8 md:gap-16 px-10 py-5 rounded-3xl bg-gradient-to-b from-[#C4A67B]/30 to-[#DBC297]/10 backdrop-blur-xl border border-[#C4A67B]/40 shadow-gold z-20 w-[90%] md:w-auto justify-center"
+          className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-4 md:gap-16 px-4 md:px-10 py-4 md:py-5 rounded-3xl bg-gradient-to-b from-[#C4A67B]/30 to-[#DBC297]/10 backdrop-blur-xl border border-[#C4A67B]/40 shadow-gold z-20 w-[95%] md:w-auto justify-center"
         >
           <div className="text-center">
-             <div className="font-serif text-3xl font-medium text-[#132B23] mb-1">99.9%</div>
-             <div className="text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Absorption</div>
+             <div className="font-serif text-xl md:text-3xl font-medium text-[#132B23] mb-1">99.9%</div>
+             <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Absorption</div>
           </div>
-          <div className="w-[1px] h-12 bg-[#132B23]/20"></div>
+          <div className="w-[1px] h-8 md:h-12 bg-[#132B23]/20"></div>
           <div className="text-center">
-             <div className="font-serif text-3xl font-medium text-[#132B23] mb-1">PPG</div>
-             <div className="text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Clinical</div>
+             <div className="font-serif text-xl md:text-3xl font-medium text-[#132B23] mb-1">PPG</div>
+             <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Clinical</div>
           </div>
-          <div className="w-[1px] h-12 bg-[#132B23]/20"></div>
+          <div className="w-[1px] h-8 md:h-12 bg-[#132B23]/20"></div>
           <div className="text-center">
-             <div className="font-serif text-3xl font-medium text-[#132B23] mb-1">2.5</div>
-             <div className="text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Hydration</div>
+             <div className="font-serif text-xl md:text-3xl font-medium text-[#132B23] mb-1">2.5</div>
+             <div className="text-[8px] md:text-[10px] uppercase tracking-widest text-[#132B23]/80 font-bold">Hydration</div>
           </div>
         </motion.div>
 

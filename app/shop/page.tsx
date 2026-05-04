@@ -158,7 +158,7 @@ export default function ShopPage() {
         ) : (
           <motion.div
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((treatment) => (
@@ -197,13 +197,13 @@ function ShopCard({ treatment, onAddToCart }: { treatment: Treatment; onAddToCar
       transition={{ duration: 0.5 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative bg-[#FCFAF7]/40 backdrop-blur-md rounded-[2rem] p-4 border border-[#C4A67B]/20 transition-all duration-500 hover:shadow-gold hover:border-[#C4A67B]/70 hover:bg-[#FCFAF7]/80 flex flex-col h-full cursor-pointer"
+      className="group relative bg-[#FCFAF7]/40 backdrop-blur-md rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-4 border border-[#C4A67B]/20 transition-all duration-500 hover:shadow-gold hover:border-[#C4A67B]/70 hover:bg-[#FCFAF7]/80 flex flex-col h-full cursor-pointer"
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/5] rounded-[1.5rem] overflow-hidden mb-6 bg-[#E8E3D9]">
+      <div className="relative w-full aspect-[4/5] rounded-[1rem] md:rounded-[1.5rem] overflow-hidden mb-4 md:mb-6 bg-[#E8E3D9]">
         {treatment.featured && (
-          <div className="absolute top-4 left-4 z-20">
-            <span className="bg-[#132B23] text-[#DBC297] text-[9px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full">
+          <div className="absolute top-2 left-2 md:top-4 md:left-4 z-20">
+            <span className="bg-[#132B23] text-[#DBC297] text-[7px] md:text-[9px] uppercase tracking-widest font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full">
               Signature
             </span>
           </div>
@@ -219,29 +219,30 @@ function ShopCard({ treatment, onAddToCart }: { treatment: Treatment; onAddToCar
         >
           <button
             onClick={(e) => { e.preventDefault(); onAddToCart() }}
-            className="w-full bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] text-xs font-bold uppercase tracking-widest py-3 rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform"
+            className="w-full bg-gradient-to-r from-[#DBC297] to-[#C4A67B] text-[#132B23] text-[9px] md:text-xs font-bold uppercase tracking-widest py-2 md:py-3 rounded-lg md:rounded-xl flex items-center justify-center gap-1 md:gap-2 hover:scale-[1.02] transition-transform"
           >
-            <ShoppingBag className="w-4 h-4" />
-            Add to Bag
+            <ShoppingBag className="w-3 h-3 md:w-4 md:h-4" />
+            <span className="hidden sm:inline">Add to Bag</span>
+            <span className="sm:hidden">Add</span>
           </button>
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#132B23]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-grow justify-between px-2">
+      <div className="flex flex-col flex-grow justify-between px-1 md:px-2">
         <div>
           <Link href={`/treatment/${treatment.slug}`}>
-            <h3 className="font-serif text-lg text-[#132B23] mb-2 group-hover:text-[#C4A67B] transition-colors">{treatment.name}</h3>
+            <h3 className="font-serif text-sm md:text-lg text-[#132B23] mb-1 md:mb-2 group-hover:text-[#C4A67B] transition-colors line-clamp-2 leading-tight">{treatment.name}</h3>
           </Link>
-          <p className="text-[#606864] text-[10px] uppercase tracking-widest mb-4">
+          <p className="text-[#606864] text-[8px] md:text-[10px] uppercase tracking-widest mb-2 md:mb-4">
             {treatment.duration}
           </p>
         </div>
         
-        <div className="flex items-center justify-between border-t border-[#132B23]/10 pt-4 mt-auto">
-          <span className="font-bold text-[#132B23] text-sm">₦{treatment.price.toLocaleString()}</span>
-          <button onClick={(e) => { e.preventDefault(); onAddToCart() }} className="w-8 h-8 rounded-full border border-[#C4A67B] text-[#C4A67B] flex items-center justify-center hover:bg-[#C4A67B] hover:text-[#132B23] transition-all duration-300">
+        <div className="flex items-center justify-between border-t border-[#132B23]/10 pt-3 md:pt-4 mt-auto">
+          <span className="font-bold text-[#132B23] text-[10px] md:text-sm">₦{treatment.price.toLocaleString()}</span>
+          <button onClick={(e) => { e.preventDefault(); onAddToCart() }} className="w-6 h-6 md:w-8 md:h-8 rounded-full border border-[#C4A67B] text-[#C4A67B] flex items-center justify-center hover:bg-[#C4A67B] hover:text-[#132B23] transition-all duration-300">
             +
           </button>
         </div>

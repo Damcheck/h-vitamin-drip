@@ -73,20 +73,20 @@ export function AIScience() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-2 gap-3 md:gap-4"
         >
           {cards.map((card, i) => (
-            <motion.div variants={cardVariants} key={i} className="group relative bg-[#FCFAF7]/10 backdrop-blur-xl border border-[#C4A67B]/20 p-8 rounded-3xl transition-all duration-500 hover:bg-[#FCFAF7]/20 hover:border-[#C4A67B]/50 hover:shadow-gold cursor-pointer">
-              <div className="flex justify-between items-start mb-12">
-                <div className="w-10 h-10 rounded-full bg-[#132B23]/50 flex items-center justify-center text-xl border border-[#C4A67B]/20 group-hover:bg-[#C4A67B] group-hover:text-[#132B23] transition-colors duration-500">
+            <motion.div variants={cardVariants} key={i} className="group relative bg-[#FCFAF7]/10 backdrop-blur-xl border border-[#C4A67B]/20 p-5 md:p-8 rounded-[1.5rem] md:rounded-3xl transition-all duration-500 hover:bg-[#FCFAF7]/20 hover:border-[#C4A67B]/50 hover:shadow-gold cursor-pointer">
+              <div className="flex justify-between items-start mb-6 md:mb-12">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#132B23]/50 flex items-center justify-center text-sm md:text-xl border border-[#C4A67B]/20 group-hover:bg-[#C4A67B] group-hover:text-[#132B23] transition-colors duration-500">
                   {card.icon}
                 </div>
-                <div className="text-[#C4A67B] opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
+                <div className="text-[#C4A67B] opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0 hidden sm:block">
                   &rarr;
                 </div>
               </div>
-              <h3 className="font-serif text-2xl text-[#EBE7DF] mb-2">{card.title}</h3>
-              <p className="text-[#C4A67B] text-xs uppercase tracking-widest font-semibold">{card.desc}</p>
+              <h3 className="font-serif text-base md:text-2xl text-[#EBE7DF] mb-1 md:mb-2 leading-tight">{card.title}</h3>
+              <p className="text-[#C4A67B] text-[8px] md:text-xs uppercase tracking-widest font-semibold">{card.desc}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -80,13 +80,13 @@ export function AICollection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
         >
           {products.map((p) => (
             <Link href={`/treatment/${p.slug}`} key={p.id} className="block w-full">
-              <motion.div variants={cardVariants} className="group relative bg-[#FCFAF7]/40 backdrop-blur-md rounded-[2rem] p-4 border border-[#C4A67B]/20 transition-all duration-500 hover:shadow-gold hover:border-[#C4A67B]/70 hover:bg-[#FCFAF7]/80 flex flex-col h-full cursor-pointer">
+              <motion.div variants={cardVariants} className="group relative bg-[#FCFAF7]/40 backdrop-blur-md rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-4 border border-[#C4A67B]/20 transition-all duration-500 hover:shadow-gold hover:border-[#C4A67B]/70 hover:bg-[#FCFAF7]/80 flex flex-col h-full cursor-pointer">
               {/* Image Container */}
-              <div className="relative w-full aspect-[4/5] rounded-[1.5rem] overflow-hidden mb-6 bg-[#F4F1E9]">
+              <div className="relative w-full aspect-[4/5] rounded-[1rem] md:rounded-[1.5rem] overflow-hidden mb-4 md:mb-6 bg-[#F4F1E9]">
                 <Image 
                   src={p.img} 
                   alt={p.name} 
@@ -97,17 +97,17 @@ export function AICollection() {
               </div>
 
               {/* Content */}
-              <div className="flex flex-col flex-grow justify-between px-2">
+              <div className="flex flex-col flex-grow justify-between px-1 md:px-2">
                 <div>
-                  <h3 className="font-serif text-xl text-[#132B23] mb-2">{p.name}</h3>
-                  <p className="text-[#606864] text-xs tracking-wide leading-relaxed mb-6">
+                  <h3 className="font-serif text-sm md:text-xl text-[#132B23] mb-1 md:mb-2 line-clamp-1">{p.name}</h3>
+                  <p className="text-[#606864] text-[9px] md:text-xs tracking-wide leading-relaxed mb-4 md:mb-6 line-clamp-2">
                     {p.desc}
                   </p>
                 </div>
                 
-                <div className="flex items-center justify-between border-t border-[#132B23]/10 pt-4 mt-auto">
-                  <span className="font-semibold text-[#132B23] text-sm">Book {p.price}</span>
-                  <div className="w-8 h-8 rounded-full bg-[#132B23] text-[#C4A67B] flex items-center justify-center transform group-hover:-rotate-45 transition-transform duration-300 shadow-gold">
+                <div className="flex items-center justify-between border-t border-[#132B23]/10 pt-3 md:pt-4 mt-auto">
+                  <span className="font-semibold text-[#132B23] text-[10px] md:text-sm">Book {p.price}</span>
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#132B23] text-[#C4A67B] flex items-center justify-center transform group-hover:-rotate-45 transition-transform duration-300 shadow-gold text-xs md:text-base">
                     &rarr;
                   </div>
                 </div>

@@ -45,46 +45,46 @@ export function AIInnovations() {
         </motion.div>
 
         {/* Grid */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            }}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
+          >
           {products.map((p, i) => (
             <Link href="/treatment/glutathione-detox" key={i} className="block w-full">
-            <motion.div 
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-              }}
-              className="group relative bg-[#FCFAF7]/10 backdrop-blur-2xl rounded-2xl p-4 border border-[#C4A67B]/30 transition-all duration-500 hover:bg-[#FCFAF7]/20 hover:border-[#C4A67B]/60 hover:shadow-gold overflow-hidden cursor-pointer h-full"
-            >
-              
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-6 bg-[#132B23]/50">
-                <Image 
-                  src={p.img} 
-                  alt={p.name} 
-                  fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100 mix-blend-lighten"
-                />
-              </div>
-
-              <div className="flex justify-between items-end relative z-10">
-                <div>
-                  <p className="text-[#C4A67B] text-[9px] uppercase tracking-widest mb-1">{p.desc}</p>
-                  <h3 className="font-serif text-lg text-[#EBE7DF]">{p.name}</h3>
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                }}
+                className="group relative bg-[#FCFAF7]/10 backdrop-blur-2xl rounded-2xl p-3 md:p-4 border border-[#C4A67B]/30 transition-all duration-500 hover:bg-[#FCFAF7]/20 hover:border-[#C4A67B]/60 hover:shadow-gold overflow-hidden cursor-pointer h-full flex flex-col justify-between"
+              >
+                
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3 md:mb-6 bg-[#132B23]/50">
+                  <Image 
+                    src={p.img} 
+                    alt={p.name} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100 mix-blend-lighten"
+                  />
                 </div>
-                <div className="w-8 h-8 rounded-full border border-[#C4A67B] text-[#C4A67B] flex items-center justify-center transition-transform duration-500 group-hover:rotate-45 group-hover:bg-[#C4A67B] group-hover:text-[#132B23] shadow-[0_0_15px_rgba(196,166,123,0.3)]">
-                  &rarr;
-                </div>
-              </div>
 
-            </motion.div>
+                <div className="flex justify-between items-end relative z-10">
+                  <div className="pr-2">
+                    <p className="text-[#C4A67B] text-[7px] md:text-[9px] uppercase tracking-widest mb-1 line-clamp-1">{p.desc}</p>
+                    <h3 className="font-serif text-sm md:text-lg text-[#EBE7DF] line-clamp-2">{p.name}</h3>
+                  </div>
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full border border-[#C4A67B] text-[#C4A67B] flex items-center justify-center transition-transform duration-500 group-hover:rotate-45 group-hover:bg-[#C4A67B] group-hover:text-[#132B23] shadow-[0_0_15px_rgba(196,166,123,0.3)] text-xs md:text-base flex-shrink-0">
+                    &rarr;
+                  </div>
+                </div>
+
+              </motion.div>
             </Link>
           ))}
         </motion.div>
