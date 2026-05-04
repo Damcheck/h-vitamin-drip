@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H Vitamin Drip - Email Verification</title>
+  <style>
+    /* Client-specific Resets */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #07120e;
+      /* Simulated liquid background using complex gradients */
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(26, 56, 46, 0.4), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(219, 194, 151, 0.05), transparent 40%),
+        linear-gradient(135deg, #07120e 0%, #0d1e18 100%);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #EBE7DF;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .wrapper {
+      width: 100%;
+      table-layout: fixed;
+      padding: 60px 20px;
+    }
+
+    /* The "Glassmorphism" Card */
+    .glass-card {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 500px;
+      background: rgba(19, 43, 35, 0.6);
+      /* Fallback for clients that don't support rgba properly */
+      background-color: #10241d; 
+      /* Backdrop filter works in Apple Mail & some modern clients */
+      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(219, 194, 151, 0.2);
+      border-top: 1px solid rgba(219, 194, 151, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 32px;
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(219, 194, 151, 0.05);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Glowing header */
+    .header-section {
+      padding: 50px 40px 30px;
+      position: relative;
+    }
+
+    .logo-mark {
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #EBE7DF 0%, #DBC297 50%, #A68B5B 100%);
+      border-radius: 20px;
+      line-height: 70px;
+      font-size: 38px;
+      font-family: Georgia, serif;
+      font-weight: 900;
+      color: #07120e;
+      text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 2px 5px rgba(255, 255, 255, 0.8);
+      margin-bottom: 25px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 28px;
+      font-family: Georgia, serif;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 20px rgba(219, 194, 151, 0.3);
+    }
+
+    .subtitle {
+      margin: 8px 0 0 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #DBC297;
+      font-weight: bold;
+    }
+
+    .body-section {
+      padding: 10px 40px 40px;
+    }
+
+    .message {
+      color: #b3b9b6;
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0 0 35px 0;
+      font-weight: 300;
+    }
+
+    /* Carved Glass OTP Box */
+    .otp-container {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 24px;
+      padding: 35px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(219, 194, 151, 0.2);
+      box-shadow: 
+        inset 0 10px 30px rgba(0, 0, 0, 0.8),
+        0 2px 0 rgba(255, 255, 255, 0.05);
+      margin-bottom: 35px;
+      position: relative;
+    }
+
+    .otp-label {
+      margin: 0 0 15px 0;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(219, 194, 151, 0.7);
+      font-weight: bold;
+    }
+
+    .otp-code {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 48px;
+      letter-spacing: 12px;
+      color: #ffffff;
+      font-weight: 900;
+      /* Golden glow */
+      text-shadow: 
+        0 0 20px rgba(219, 194, 151, 0.6),
+        0 0 40px rgba(219, 194, 151, 0.2);
+      padding-left: 12px; /* Offset the letter-spacing on the last character */
+    }
+
+    .footer-section {
+      padding: 30px 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .footer-text {
+      margin: 0;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+      line-height: 1.6;
+    }
+
+    /* "Liquid" accent line */
+    .accent-line {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #132B23, #DBC297, #132B23);
+      border-radius: 4px 4px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Center table for email client compatibility -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center">
+          
+          <table class="glass-card" border="0" cellspacing="0" cellpadding="0">
+            <!-- Accent Top Line -->
+            <tr>
+              <td>
+                <div class="accent-line"></div>
+              </td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td class="header-section">
+                <div class="logo-mark">H</div>
+                <h1 class="title">Email Verification</h1>
+                <p class="subtitle">H Vitamin Drip Portal</p>
+              </td>
+            </tr>
+            
+            <!-- Body -->
+            <tr>
+              <td class="body-section">
+                <p class="message">
+                  We received a request to securely update your admin email address. Please use the verification code below to authorize this change.
+                </p>
+                
+                <div class="otp-container">
+                  <p class="otp-label">Your Security Code</p>
+                  <!-- Supabase will dynamically replace {{ .Token }} with the 6-digit OTP -->
+                  <p class="otp-code">{{ .Token }}</p>
+                </div>
+                
+                <p class="message" style="font-size: 13px; margin-bottom: 0;">
+                  If you didn't initiate this request, you can safely ignore this email. Your platform remains secure.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td class="footer-section">
+                <p class="footer-text">
+                  &copy; 2026 H Vitamin Drip.<br>
+                  Premium IV Therapy & Wellness.
+                </p>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

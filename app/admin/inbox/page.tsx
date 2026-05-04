@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
-import { MessageSquare, Mail, Phone, Calendar, Trash2 } from "lucide-react"
+import { MessageSquare, Mail, Phone, Calendar, Trash2, Loader2 } from "lucide-react"
 
 type Submission = {
   id: string
@@ -39,64 +39,71 @@ export default function InboxPage() {
   }
 
   if (loading) {
-    return <div className="text-sm text-gray-500">Loading inbox...</div>
+    return (
+      <div className="h-full flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 text-[#DBC297] animate-spin" />
+      </div>
+    )
   }
 
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-5xl text-[#EBE7DF]">
       <div className="mb-8 flex items-end justify-between">
         <div>
-          <h1 className="text-[28px] font-bold" style={{ color: "#043222" }}>Inbox</h1>
-          <p className="text-[13px] text-gray-500 mt-1">Manage contact form submissions</p>
+          <h1 className="text-3xl font-serif text-white uppercase tracking-wider">Inbox</h1>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#DBC297] mt-1">Manage contact form submissions</p>
         </div>
-        <div className="px-4 py-2 bg-white rounded-full border border-gray-200 text-[12px] font-bold text-[#043222]">
+        <div className="px-5 py-2.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#DBC297] shadow-lg">
           {submissions.length} Messages
         </div>
       </div>
 
-      <div className="bg-white rounded-[24px] border border-gray-200 overflow-hidden">
+      <div className="bg-white/5 backdrop-blur-xl rounded-[2rem] border border-white/10 overflow-hidden shadow-lg">
         {submissions.length === 0 ? (
-          <div className="p-12 text-center text-gray-400">
-            <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-20" />
-            <p>No messages yet.</p>
+          <div className="p-20 text-center flex flex-col items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+              <MessageSquare className="w-8 h-8 text-white/20" />
+            </div>
+            <p className="text-lg font-serif text-white">No messages yet.</p>
+            <p className="text-sm text-white/40">When customers contact you, messages will appear here.</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-white/5">
             {submissions.map((sub) => (
-              <div key={sub.id} className="p-6 hover:bg-gray-50 transition-colors">
-                <div className="flex items-start justify-between mb-4">
+              <div key={sub.id} className="p-8 hover:bg-white/5 transition-colors group">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-5">
                   <div>
-                    <h3 className="font-bold text-[16px] text-gray-900">{sub.name}</h3>
-                    <div className="flex items-center gap-4 mt-2">
-                      <a href={`mailto:${sub.email}`} className="flex items-center gap-1.5 text-[12px] text-gray-500 hover:text-[#043222]">
+                    <h3 className="font-serif text-xl text-white group-hover:text-[#DBC297] transition-colors">{sub.name}</h3>
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                      <a href={`mailto:${sub.email}`} className="flex items-center gap-2 text-xs text-white/60 hover:text-white transition-colors">
                         <Mail className="w-3.5 h-3.5" /> {sub.email}
                       </a>
                       {sub.phone && (
-                        <a href={`tel:${sub.phone}`} className="flex items-center gap-1.5 text-[12px] text-gray-500 hover:text-[#043222]">
+                        <a href={`tel:${sub.phone}`} className="flex items-center gap-2 text-xs text-white/60 hover:text-white transition-colors">
                           <Phone className="w-3.5 h-3.5" /> {sub.phone}
                         </a>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-1.5 text-[11px] text-gray-400 font-medium">
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-white/40">
                       <Calendar className="w-3 h-3" />
                       {new Date(sub.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </span>
-                    <button onClick={() => handleDelete(sub.id)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
-                      <Trash2 className="w-4 h-4" />
+                    <button onClick={() => handleDelete(sub.id)} className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-red-400 hover:border-red-400/50 hover:bg-red-500/10 transition-all">
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
 
                 {sub.service && (
-                  <div className="mb-3 inline-flex items-center px-3 py-1 bg-[#e8f0ec] text-[#043222] rounded-full text-[11px] font-bold">
+                  <div className="mb-4 inline-flex items-center px-4 py-1.5 bg-[#DBC297]/10 border border-[#DBC297]/20 text-[#DBC297] rounded-full text-[9px] font-bold uppercase tracking-widest">
                     Interested in: {sub.service}
                   </div>
                 )}
                 
                 {sub.message && (
-                  <p className="text-[14px] text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
+                  <p className="text-sm text-white/80 leading-relaxed bg-[#132B23]/50 p-6 rounded-2xl border border-white/5 font-medium">
                     {sub.message}
                   </p>
                 )}
